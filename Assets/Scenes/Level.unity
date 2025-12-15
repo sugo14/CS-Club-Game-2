@@ -151,6 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UI: {fileID: 484503203}
   towerHealth: {fileID: 461000044}
+  UpgradeCardSpawner: {fileID: 981435079}
 --- !u!4 &134641642
 Transform:
   m_ObjectHideFlags: 0
@@ -975,7 +976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0.8666667}
+  m_Color: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10051,7 +10052,7 @@ GameObject:
   - component: {fileID: 1912040088}
   - component: {fileID: 1912040087}
   m_Layer: 0
-  m_Name: UI reset
+  m_Name: UI Hide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
