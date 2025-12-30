@@ -73,3 +73,5 @@ crashlytics-build.properties
 
 # Removes the .vscode folder
 /.vscode
+Assets/Scenes/Combat_Testing.unity
+Assets/Scenes/Combat_Testing.unity.meta
