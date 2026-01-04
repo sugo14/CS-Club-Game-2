@@ -115,7 +115,7 @@ public class PlayerGun : MonoBehaviour
         {
             id = playerID * 1000 + nextBulletId++,
             ownerId = playerID,
-            //set this through code leter
+            //set this through code later
             damage = baseDamage,
             knockback = baseKnockback,
             lifestealPercent = baseLifesteal,
