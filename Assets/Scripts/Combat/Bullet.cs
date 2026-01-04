@@ -29,24 +29,21 @@ public class Bullet : MonoBehaviour
     {
 
 
-        if (collision != null)
+        //Debug.Log($"Bullet hit: {collision.gameObject.name}");
+        if (collision.gameObject.TryGetComponent<Bullet>(out Bullet hitBullet))
         {
-            //Debug.Log($"Bullet hit: {collision.gameObject.name}");
-            if(collision.gameObject.TryGetComponent<Bullet>(out Bullet hitBullet))
+            if (bulletState.ownerId == hitBullet.bulletState.ownerId)
             {
-                if (bulletState.ownerId == hitBullet.bulletState.ownerId)
-                {
-                    // Ignore collision with bullets from the same owner
-                    return;
-                }
+                // Ignore collision with bullets from the same owner
+                return;
             }
-            
-            //Damage logic here
-
-
-            // Destroy the bullet
-            Destroy(gameObject);
         }
+            
+        //Damage logic here
+
+
+        // Destroy the bullet
+        Destroy(gameObject);
 
     }
 
