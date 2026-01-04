@@ -17,7 +17,7 @@ public class PlayerGun : MonoBehaviour
     int magazineSize = 3;
 
 
-    //Fireing Stats
+    //Firing Stats
     [SerializeField]
     float spreadAngle = 0.08f; //degrees
     [SerializeField]
