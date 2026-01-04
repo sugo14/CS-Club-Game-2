@@ -7,14 +7,12 @@ public class Bullet : MonoBehaviour
 {
     BulletState bulletState;
 
-    CircleCollider2D circleCollider;
     Rigidbody2D rb;
 
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        circleCollider = GetComponentInChildren<CircleCollider2D>(true);
     }
 
 
