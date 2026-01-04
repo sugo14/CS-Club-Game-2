@@ -13,7 +13,7 @@ public class PlayerGunEditor : Editor
         
         if (GUILayout.Button("Fire"))
         {
-            script.Fire(); // Or whatever method you want to call
+            script.Fire();
         }
         
         if (GUILayout.Button("Reload"))

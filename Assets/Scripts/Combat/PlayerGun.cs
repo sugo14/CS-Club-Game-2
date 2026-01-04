@@ -9,8 +9,38 @@ public class PlayerGun : MonoBehaviour
     //TODO: Set this through code from the registery
     [SerializeField]
     int playerID = 1;
+
+    //Gun stats
+    [SerializeField]
+    float reloadspeed = 2f; // seconds
+    [SerializeField]
+    int magazineSize = 3;
+
+
+    //Fireing Stats
     [SerializeField]
     float spreadAngle = 0.08f; //degrees
+    [SerializeField]
+    float bulletSpeed = 5f;
+
+    //Burst Stats
+    [SerializeField]
+    int bulletsPerBurst = 1;
+    [SerializeField]
+    int burstDelay = 50; //milliseconds
+
+    //bullet Stats
+    [SerializeField]
+    float baseDamage = 10f;
+    [SerializeField]
+    float baseKnockback = 5f;
+
+    //Special
+    [SerializeField]
+    float baseLifesteal = 0f;
+
+
+
 
     [SerializeField]
     private GameObject bulletPrefab;
@@ -18,10 +48,15 @@ public class PlayerGun : MonoBehaviour
 
     int nextBulletId = 000;
 
+    bool isReloading = false;
+
+    [SerializeField]
+    int ammo;
+
 
     void Start()
     {
-
+        ammo = magazineSize;
     }
 
     void Update()
@@ -31,32 +66,62 @@ public class PlayerGun : MonoBehaviour
 
     public void Fire()
     {
-        CreateBullet();
+        StartCoroutine(FireBurstCoroutine());
     }
-    //Not done yet
+
+    IEnumerator FireBurstCoroutine()
+    {
+        for (int i = 0; i < bulletsPerBurst; i++)
+        {
+            if (ammo > 0)
+            {
+                CreateBullet();
+            }
+            else
+            {
+                Debug.Log("Out of Ammo!");
+
+                Reload();
+
+                yield break;
+            }
+
+            // Delay between bullets in a burst
+            if (burstDelay > 0 && i < bulletsPerBurst - 1)
+            {
+                yield return new WaitForSeconds(burstDelay / 1000f);
+            }
+        }
+    }
+
     public void Reload()
     {
-        Debug.Log("Reload");
+        if (!isReloading)
+        {
+            Debug.Log("Reload");
+            //Create a coroutine to handle reloading over time
+            StartCoroutine(ReloadCoroutine());
+            isReloading = true;
+        }
     }
 
     // Create and initialize a new bullet
     GameObject CreateBullet()
     {
 
-        Debug.Log("CreateBullet");
+        //Debug.Log("CreateBullet");
         // Create a new bullet state
         BulletState newBulletState = new BulletState
         {
             id = playerID * 1000 + nextBulletId++,
             ownerId = playerID,
             //set this through code leter
-            damage = 10f,
-            knockback = 5f,
-            lifestealPercent = 0f,
+            damage = baseDamage,
+            knockback = baseKnockback,
+            lifestealPercent = baseLifesteal,
 
 
-            velocity = bullet2DVelocity(20f, transform.eulerAngles.z, spreadAngle)
-
+            velocity = bullet2DVelocity(bulletSpeed, transform.eulerAngles.z, spreadAngle),
 
         };
 
@@ -75,6 +140,8 @@ public class PlayerGun : MonoBehaviour
         // Register the bullet in the EntityRegistry
         EntityRegistry.bullets.Add(newBulletState.id, bulletGO);
 
+        ammo--;
+
         return bulletGO;
     }
 
@@ -87,6 +154,16 @@ public class PlayerGun : MonoBehaviour
         float vx = speed * Mathf.Cos(angleRadians);
         float vy = speed * Mathf.Sin(angleRadians);
         return (new Vector2(vx, vy));
+    }
+
+    IEnumerator ReloadCoroutine()
+    {
+        yield return new WaitForSeconds(reloadspeed);
+        Debug.Log("Reloaded");
+        // Implement reload logic here (e.g., reset ammo count)
+        ammo = magazineSize;
+        isReloading = false;
+
     }
 
 

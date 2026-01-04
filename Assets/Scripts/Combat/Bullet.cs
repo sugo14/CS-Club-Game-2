@@ -7,33 +7,59 @@ public class Bullet : MonoBehaviour
 {
     BulletState bulletState;
 
+    CircleCollider2D circleCollider;
+    Rigidbody2D rb;
 
-    void Start()
+
+    void Awake()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
+        circleCollider = GetComponentInChildren<CircleCollider2D>(true);
     }
 
 
     void Update()
     {
-        //move bullet
-        transform.position += bulletState.velocity * Time.deltaTime;
-
         //rotate sprite to velocity direction
-        float angle = Mathf.Atan2(bulletState.velocity.y, bulletState.velocity.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
 
-        //apply gravity
-        bulletState.velocity.y += Physics2D.gravity.y * Time.deltaTime;
+    void OnCollisionEnter2D(Collision2D collision)
+    {
 
 
+        if (collision != null)
+        {
+            //Debug.Log($"Bullet hit: {collision.gameObject.name}");
+            if(collision.gameObject.TryGetComponent<Bullet>(out Bullet hitBullet))
+            {
+                if (bulletState.ownerId == hitBullet.bulletState.ownerId)
+                {
+                    // Ignore collision with bullets from the same owner
+                    return;
+                }
+            }
+            
+            //Damage logic here
 
+
+            // Destroy the bullet
+            Destroy(gameObject);
+        }
 
     }
 
-
-    public void  setup(BulletState state)
+    public void setup(BulletState state)
     {
         bulletState = state;
+        if (rb == null)
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
+        if (rb != null)
+        {
+            rb.velocity = bulletState.velocity;
+        }
     }
 }

@@ -98,4 +98,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 1
-  bulletPrefab: {fileID: 0}
+  reloadspeed: 2
+  magazineSize: 3
+  spreadAngle: 0.08
+  bulletSpeed: 5
+  bulletsPerBurst: 1
+  burstDelay: 0
+  lifesteal: 0
+  bulletPrefab: {fileID: 4205022965172523014, guid: 52ddf0e2fb389564ea329d7379396c5e, type: 3}
+  ammo: 0
