@@ -6,87 +6,86 @@ using TMPro;
 public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Button cardButton;
+
+    public Image backgroundImage;   // Background (level-based)
+    public Image CoverImage;        // Cover image
+
     public TextMeshProUGUI cardNameText;
     public TextMeshProUGUI descriptionText;
-    public CardData cardData;
 
-    private Image buttonImage;
+    public Sprite[] coverSprites;       // index = upgrade.id
+    public Sprite[] backgroundSprites;  // 0 = level 1, 1 = level 2, 2 = level 3
+
+    private Graphic[] allGraphics;
+
     private Color darkColor;
     private Color brightColor;
 
-    private int lastVersion = -1; // Track version for changes
-
     private void Awake()
     {
-        buttonImage = cardButton.GetComponent<Image>();
+        // Grab EVERYTHING under this card
+        allGraphics = GetComponentsInChildren<Graphic>(true);
 
-        Color original = buttonImage.color;
+        brightColor = Color.white;
 
-        darkColor = original * 0.6f;
-        darkColor.a = original.a;
+        darkColor = brightColor * 0.6f;
+        darkColor.a = 1f;
 
-        brightColor = original * 1.2f;
-        brightColor.r = Mathf.Min(brightColor.r, 1f);
-        brightColor.g = Mathf.Min(brightColor.g, 1f);
-        brightColor.b = Mathf.Min(brightColor.b, 1f);
-        brightColor.a = original.a;
-
-        buttonImage.color = darkColor; // Start dark
-
-        UpdateCardUI();
+        // Start dark
+        SetAllGraphicsColor(darkColor);
     }
 
-    private void Update()
+    private void SetAllGraphicsColor(Color color)
     {
-        // Auto-update if ScriptableObject version changed
-        if (cardData != null && cardData.version != lastVersion)
-        {
-            UpdateCardUI();
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (cardData != null)
-            cardData.onChanged -= UpdateCardUI;
+        foreach (var g in allGraphics)
+            g.color = color;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        buttonImage.color = brightColor;
+        SetAllGraphicsColor(brightColor);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        buttonImage.color = darkColor;
+        SetAllGraphicsColor(darkColor);
     }
 
-    // Public method to update UI text
-// Public method to update UI text
-    public void UpdateCardUI()
-    {
-        if (cardData == null) return;
-
-        if (cardNameText != null)
-            cardNameText.text = cardData.cardTitle;
-
-        if (descriptionText != null)
-            descriptionText.text = cardData.cardDescription;
-
-        lastVersion = cardData.version;
-    }
     public void SetUpgrade(Upgrade upgrade)
     {
-        cardNameText.text = upgrade.name;
-        descriptionText.text = upgrade.description;
+        // Text
+        if (cardNameText != null)
+            cardNameText.text = upgrade.name;
+
+        if (descriptionText != null)
+            descriptionText.text = upgrade.description;
+
+        // Cover image (by upgrade ID)
+        if (CoverImage != null)
+        {
+            if (upgrade.id < coverSprites.Length)
+                CoverImage.sprite = coverSprites[upgrade.id];
+            else
+                CoverImage.sprite = null;
+        }
+
+        // Background image (by level)
+        if (backgroundImage != null)
+        {
+            int index = upgrade.level - 1;
+            if (index >= 0 && index < backgroundSprites.Length)
+                backgroundImage.sprite = backgroundSprites[index];
+            else
+                backgroundImage.sprite = null;
+        }
+
+        // Force dark after reroll
+        SetAllGraphicsColor(darkColor);
     }
 
-
-#if UNITY_EDITOR
-    private void OnValidate()
+    public void ClearCoverImage()
     {
-        UpdateCardUI();
+        if (CoverImage != null)
+            CoverImage.sprite = null;
     }
-#endif
-
 }

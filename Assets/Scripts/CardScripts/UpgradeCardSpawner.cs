@@ -5,28 +5,26 @@ using UnityEngine;
 public class UpgradeCardSpawner : MonoBehaviour
 {
     public CardUI[] cardUIs;
-    // Start is called before the first frame update
-    void Start()
-    {
-        GiveRandomUpgrade();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //Assign random upgrades to cards and update visuals
     public void GiveRandomUpgrade()
     {
-        foreach (CardUI card in cardUIs)
+        foreach (var card in cardUIs)
         {
-            
-        // Pick a random uprade from the database
-        int randomIndex = Random.Range(0, Upgrades.db.Length);
-        Upgrade randomUpgrade = Upgrades.db[randomIndex];
+            // Clear old cover image first
+            card.ClearCoverImage();
 
-        // Assign it to the card UI
-        card.SetUpgrade(randomUpgrade);
+            // Pick a random upgrade from database
+            int randomIndex = Random.Range(0, Upgrades.db.Length);
+            Upgrade selectedUpgrade = Upgrades.db[randomIndex];
+
+            // Assign upgrade (updates texts, cover, and background)
+            card.SetUpgrade(selectedUpgrade);
         }
+    }
+
+    private void Start()
+    {
+        GiveRandomUpgrade();
     }
 }
