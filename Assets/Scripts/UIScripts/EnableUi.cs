@@ -6,11 +6,6 @@ public class EnableUi : MonoBehaviour
     public towerHealth towerHealth;
     public UpgradeCardSpawner UpgradeCardSpawner;
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         if (towerHealth.IS_DEAD)
