@@ -306,12 +306,20 @@ MonoBehaviour:
   descriptionText: {fileID: 3281224170319295828}
   coverSprites:
   - {fileID: -162327182148953935, guid: 6fbaaebb20e62454d922425dea4f2acb, type: 3}
-  - {fileID: -8754744741259069018, guid: 7b2b78f3ec0c17f4bb410eb26f6b925a, type: 3}
-  - {fileID: 3855261117485934006, guid: fcf70f6b51b82dd4e99c69e7363a153e, type: 3}
+  - {fileID: -162327182148953935, guid: 6fbaaebb20e62454d922425dea4f2acb, type: 3}
+  - {fileID: 5833268262561435299, guid: b62542ab3e0d8f744907d22b59507ed8, type: 3}
+  - {fileID: 6891397279849045590, guid: 3ffbfb54c6934d749826476eddcd2adc, type: 3}
+  - {fileID: 3585626716131892459, guid: 0720b7ba42c711744bb1b2d054c7a9a2, type: 3}
+  - {fileID: 3278312837307418135, guid: 31dd80be33d64f64da6a692b2bcaea25, type: 3}
+  - {fileID: 536235539577576124, guid: 61a0c403b2fc57846a3b3e138a5e7e08, type: 3}
+  - {fileID: 4898490895263182898, guid: 59e9997765dad6849a007a3c08ecf6c5, type: 3}
+  - {fileID: 4898490895263182898, guid: 59e9997765dad6849a007a3c08ecf6c5, type: 3}
+  - {fileID: 4326872430171513394, guid: 8914d194dd1226f469c3d90bd3745206, type: 3}
+  - {fileID: -4012684559961635890, guid: 616defe494c52e042bbf94b04f3cd471, type: 3}
   backgroundSprites:
-  - {fileID: -5558139721947321037, guid: 305dff7ccdd112a4eb5912f1060d92cf, type: 3}
-  - {fileID: 1469712726126178129, guid: 16111a7e2804e4b40802866ce22ab25b, type: 3}
-  - {fileID: -8610950417735311774, guid: ffa3f0b63ad4f1e439558c845703a971, type: 3}
+  - {fileID: -2770856590391416717, guid: b53fd5a642c7e714b985282fe49aa223, type: 3}
+  - {fileID: -4877552600172059981, guid: ef5f86f58ae4a5a4fa72dd1cc0c9388a, type: 3}
+  - {fileID: -3804994558999487247, guid: 229a5b6746321c546aaef9a95200fa5d, type: 3}
 --- !u!1 &5032063846984770059
 GameObject:
   m_ObjectHideFlags: 0
