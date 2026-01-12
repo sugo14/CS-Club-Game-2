@@ -60,7 +60,7 @@ public readonly struct PlayerRoundStats
     // construct relative to base stats
     public PlayerRoundStats(
         float damageMult, float knockbackMult, float lifestealAdd, float bulletSpeedMult,
-        float bulletWavesMult, float bulletsPerWaveMult, float bulletSpreadMult, int magazineSizeMult, float burstDelayMult, flaot reloadspeedMult,
+        float bulletWavesMult, float bulletsPerWaveMult, float bulletSpreadMult, int magazineSizeMult, float burstDelayMult, float reloadspeedMult,
         float moveSpeedMult, float maxHealthMult,
         float maxTowerHealthMult,
         bool towerHasGun, bool seekingBullets
