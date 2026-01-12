@@ -27,7 +27,7 @@ public class PlayerGun : MonoBehaviour
     [SerializeField]
     int bulletsPerBurst = 1;
     [SerializeField]
-    int burstDelay = 50; //milliseconds
+    float burstDelay = 50; //milliseconds
 
     //bullet Stats
     [SerializeField]

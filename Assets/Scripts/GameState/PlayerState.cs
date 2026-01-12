@@ -8,10 +8,14 @@ public static class PlayerBaseStats
     public const float baseLifesteal = 0f;
     public const float baseBulletSpeed = 5f;
 
+
     public const int baseBulletWaves = 1;
     public const int baseBulletsPerWave = 1;
-    public const float baseBulletSpread = 0.08f; // rad
-
+    public const float baseBurstDelay = 50f; //milliseconds
+    public const float baseBulletSpread = 0.08f; // deg
+    public const float baseReloadSpeed = 2f;
+    public const int baseMagazineSize = 3;
+    
     public const float baseMoveSpeed = 5f;
     public const float baseMaxHealth = 100;
 
