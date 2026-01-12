@@ -46,7 +46,7 @@ public readonly struct PlayerRoundStats
 
     // bullet firing stats
     public readonly int bulletWaves, bulletsPerWave, magazineSize;
-    public readonly float bulletSpread, burstDelay, reloadspeed;
+    public readonly float bulletSpread, burstDelay, reloadSpeed;
     
     // player stats
     public readonly float moveSpeed, maxHealth;
