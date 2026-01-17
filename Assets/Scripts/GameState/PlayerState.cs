@@ -75,7 +75,7 @@ public readonly struct PlayerRoundStats
         this.bulletSpread = PlayerBaseStats.baseBulletSpread * bulletSpreadMult;
         this.magazineSize = Mathf.RoundToInt(PlayerBaseStats.baseMagazineSize * magazineSizeMult);
         this.burstDelay = PlayerBaseStats.baseBurstDelay * burstDelayMult;
-        this.reloadspeed = PlayerBaseStats.baseReloadSpeed * reloadspeedMult;
+        this.reloadSpeed = PlayerBaseStats.baseReloadSpeed * reloadspeedMult;
 
         this.moveSpeed = PlayerBaseStats.baseMoveSpeed * moveSpeedMult;
         this.maxHealth = PlayerBaseStats.baseMaxHealth * maxHealthMult;
