@@ -15,7 +15,7 @@ public static class PlayerBaseStats
     public const float baseBulletSpread = 0.08f; // deg
     public const float baseReloadSpeed = 2f;
     public const int baseMagazineSize = 3;
-    
+
     public const float baseMoveSpeed = 5f;
     public const float baseMaxHealth = 100;
 
@@ -45,8 +45,8 @@ public readonly struct PlayerRoundStats
     public readonly float damage, knockback, lifesteal, bulletSpeed;
 
     // bullet firing stats
-    public readonly int bulletWaves, bulletsPerWave;
-    public readonly float bulletSpread;
+    public readonly int bulletWaves, bulletsPerWave, magazineSize;
+    public readonly float bulletSpread, burstDelay, reloadSpeed;
     
     // player stats
     public readonly float moveSpeed, maxHealth;
@@ -60,7 +60,7 @@ public readonly struct PlayerRoundStats
     // construct relative to base stats
     public PlayerRoundStats(
         float damageMult, float knockbackMult, float lifestealAdd, float bulletSpeedMult,
-        float bulletWavesMult, float bulletsPerWaveMult, float bulletSpreadMult,
+        float bulletWavesMult, float bulletsPerWaveMult, float bulletSpreadMult, float magazineSizeMult, float burstDelayMult, float reloadspeedMult,
         float moveSpeedMult, float maxHealthMult,
         float maxTowerHealthMult,
         bool towerHasGun, bool seekingBullets
@@ -73,6 +73,9 @@ public readonly struct PlayerRoundStats
         this.bulletWaves = Mathf.RoundToInt(PlayerBaseStats.baseBulletWaves * bulletWavesMult);
         this.bulletsPerWave = Mathf.RoundToInt(PlayerBaseStats.baseBulletsPerWave * bulletsPerWaveMult);
         this.bulletSpread = PlayerBaseStats.baseBulletSpread * bulletSpreadMult;
+        this.magazineSize = Mathf.RoundToInt(PlayerBaseStats.baseMagazineSize * magazineSizeMult);
+        this.burstDelay = PlayerBaseStats.baseBurstDelay * burstDelayMult;
+        this.reloadSpeed = PlayerBaseStats.baseReloadSpeed * reloadspeedMult;
 
         this.moveSpeed = PlayerBaseStats.baseMoveSpeed * moveSpeedMult;
         this.maxHealth = PlayerBaseStats.baseMaxHealth * maxHealthMult;
