@@ -9,13 +9,16 @@ public readonly struct Upgrade
     public readonly float maxTowerHealthMult; // tower stats
     public readonly bool towerHasGun, seekingBullets; // specific upgrade flags
 
+    public readonly int level; // NEW: level tag (1 default, can be 2 or 3)
+
     public Upgrade(
         int id, string name, string description,
         float damageMult = 1f, float knockbackMult = 1f, float lifestealAdd = 0f, float bulletSpeedMult = 1f,
         float bulletWavesMult = 1f, float bulletsPerWaveMult = 1f, float bulletSpreadMult = 1f,
         float moveSpeedMult = 1f, float maxHealthMult = 1f,
         float maxTowerHealthMult = 1f,
-        bool towerHasGun = false, bool seekingBullets = false
+        bool towerHasGun = false, bool seekingBullets = false,
+        int level = 1
     ) {
         this.id = id;
         this.name = name;
@@ -37,6 +40,7 @@ public readonly struct Upgrade
 
         this.towerHasGun = towerHasGun;
         this.seekingBullets = seekingBullets;
+        this.level = level;
     }
 }
 
@@ -61,17 +65,17 @@ public static class Upgrades
 
     public static readonly Upgrade[] db =
     {
-        new Upgrade(0, "Damage Boost", "+10% damage", damageMult: 1.1f),
-        new Upgrade(1, "Damage Boost 2", "+15% damage", damageMult: 1.15f),
-        new Upgrade(2, "Knockback", "+50% knockback", knockbackMult: 1.5f),
-        new Upgrade(3, "Double Waves", "-25% damage, 2x bullet waves", damageMult: 0.75f, bulletWavesMult: 2f),
-        new Upgrade(4, "Shotgun", "-60% damage, 5x bullets, +20% spread", damageMult: 0.4f, bulletsPerWaveMult: 5f, bulletSpreadMult: 1.2f),
-        new Upgrade(5, "Lifesteal", "+20% lifesteal", lifestealAdd: 0.2f),
-        new Upgrade(6, "Speed Boost", "+20% move speed", moveSpeedMult: 1.2f),
-        new Upgrade(7, "Health", "+10% max health", maxHealthMult: 1.1f),
-        new Upgrade(8, "Health 2", "+15% max health", maxHealthMult: 1.15f),
-        new Upgrade(9, "Tank", "+30% max health, -20% move speed", maxHealthMult: 1.3f, moveSpeedMult: 0.8f),
-        new Upgrade(10, "Tower Health", "+10% tower health", maxTowerHealthMult: 1.1f),
-        new Upgrade(11, "Tower Gun", "Add gun to tower", towerHasGun: true)
+        new Upgrade(0, "Damage Boost", "+10% damage", damageMult: 1.1f, level: 1),
+        new Upgrade(1, "Damage Boost 2", "+15% damage", damageMult: 1.15f, level: 2),
+        new Upgrade(2, "Knockback", "+50% knockback", knockbackMult: 1.5f, level: 1),
+        new Upgrade(3, "Double Waves", "-25% damage, 2x bullet waves", damageMult: 0.75f, bulletWavesMult: 2f, level: 1),
+        new Upgrade(4, "Shotgun", "-60% damage, 5x bullets, +20% spread", damageMult: 0.4f, bulletsPerWaveMult: 5f, bulletSpreadMult: 1.2f, level: 2),
+        new Upgrade(5, "Lifesteal", "+20% lifesteal", lifestealAdd: 0.2f, level: 1),
+        new Upgrade(6, "Speed Boost", "+20% move speed", moveSpeedMult: 1.2f, level: 2),
+        new Upgrade(7, "Health", "+10% max health", maxHealthMult: 1.1f, level: 1),
+        new Upgrade(8, "Health 2", "+15% max health", maxHealthMult: 1.15f, level: 2),
+        new Upgrade(9, "Tank", "+30% max health, -20% move speed", maxHealthMult: 1.3f, moveSpeedMult: 0.8f, level: 3),
+        new Upgrade(10, "Tower Health", "+10% tower health", maxTowerHealthMult: 1.1f, level: 2),
+        new Upgrade(11, "Tower Gun", "Add gun to tower", towerHasGun: true, level: 2)
     };
 }
