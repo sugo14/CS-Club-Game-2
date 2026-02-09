@@ -19,7 +19,7 @@ public struct GameState
     public RoundState currentRound;
 
     // game rules
-    public readonly int roundsToWin;
+    public int roundsToWin;
 }
 
 // Info kept for each player throughout the game, across rounds.
@@ -34,7 +34,7 @@ public struct PlayerGameProfile
         // accumulate and calculate stats
         float damageMult = 1, knockbackMult = 1, lifestealAdd = 0, bulletSpeedMult = 1;
         float bulletWavesMult = 1, bulletsPerWaveMult = 1, bulletSpreadMult = 1, magazineSizeMult = 1, burstDelayMult = 1, reloadspeedMult = 1;
-        float moveSpeedMult = 1, maxHealthMult = 1;
+        float moveSpeedMult = 1, jumpForceMult = 1, maxHealthMult = 1;
         float maxTowerHealthMult = 1;
         bool towerHasGun = false, seekingBullets = false;
 
@@ -52,6 +52,7 @@ public struct PlayerGameProfile
             bulletSpreadMult *= u.bulletSpreadMult;
 
             moveSpeedMult *= u.moveSpeedMult;
+            jumpForceMult *= u.jumpForceMult;
             maxHealthMult *= u.maxHealthMult;
 
             maxTowerHealthMult *= u.maxTowerHealthMult;
@@ -63,11 +64,11 @@ public struct PlayerGameProfile
         PlayerRoundStats stats = new PlayerRoundStats(
             damageMult, knockbackMult, lifestealAdd, bulletSpeedMult,
             bulletWavesMult, bulletsPerWaveMult, bulletSpreadMult, magazineSizeMult, burstDelayMult, reloadspeedMult,
-            moveSpeedMult, maxHealthMult,
+            moveSpeedMult, jumpForceMult, maxHealthMult,
             maxTowerHealthMult,
             towerHasGun, seekingBullets
         );
-        
+
         // compile into initial PlayerState
         PlayerState ps = new PlayerState(
             id,
