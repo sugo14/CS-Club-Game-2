@@ -5,7 +5,7 @@ public readonly struct Upgrade
     public readonly string name, description; // display info
     public readonly float damageMult, knockbackMult, lifestealAdd, bulletSpeedMult; // bullet stats
     public readonly float bulletWavesMult, bulletsPerWaveMult, bulletSpreadMult; // bullet firing stats
-    public readonly float moveSpeedMult, maxHealthMult; // player stats
+    public readonly float moveSpeedMult, jumpForceMult, maxHealthMult; // player stats
     public readonly float maxTowerHealthMult; // tower stats
     public readonly bool towerHasGun, seekingBullets; // specific upgrade flags
 
@@ -13,7 +13,7 @@ public readonly struct Upgrade
         int id, string name, string description,
         float damageMult = 1f, float knockbackMult = 1f, float lifestealAdd = 0f, float bulletSpeedMult = 1f,
         float bulletWavesMult = 1f, float bulletsPerWaveMult = 1f, float bulletSpreadMult = 1f,
-        float moveSpeedMult = 1f, float maxHealthMult = 1f,
+        float moveSpeedMult = 1f, float jumpForceMult = 1f, float maxHealthMult = 1f,
         float maxTowerHealthMult = 1f,
         bool towerHasGun = false, bool seekingBullets = false
     ) {
@@ -31,6 +31,7 @@ public readonly struct Upgrade
         this.bulletSpreadMult = bulletSpreadMult;
 
         this.moveSpeedMult = moveSpeedMult;
+        this.jumpForceMult = jumpForceMult;
         this.maxHealthMult = maxHealthMult;
 
         this.maxTowerHealthMult = maxTowerHealthMult;
