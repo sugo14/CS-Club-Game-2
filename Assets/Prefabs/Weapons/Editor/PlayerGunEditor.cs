@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(Gun))]
-public class PlayerGunEditor : Editor
+public class GunEditor : Editor
 {
     public override void OnInspectorGUI()
     {
