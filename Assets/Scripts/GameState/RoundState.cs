@@ -1,4 +1,3 @@
-using UnityEngine;
 using System.Collections.Generic;
 
 // Info kept for the current round.

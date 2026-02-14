@@ -17,6 +17,7 @@ public static class PlayerBaseStats
     public const int baseMagazineSize = 3;
 
     public const float baseMoveSpeed = 5f;
+    public const float baseJumpForce = 15f;
     public const float baseMaxHealth = 100;
 
     public const float baseTargetingRange = 5f;
@@ -51,7 +52,7 @@ public readonly struct PlayerRoundStats
     public readonly float bulletSpread, burstDelay, reloadSpeed, fireDelay;
     
     // player stats
-    public readonly float moveSpeed, maxHealth;
+    public readonly float moveSpeed, jumpForce, maxHealth;
 
     // tower stats
     public readonly float maxTowerHealth, targetingRange;
@@ -63,7 +64,7 @@ public readonly struct PlayerRoundStats
     public PlayerRoundStats(
         float damageMult, float knockbackMult, float lifestealAdd, float bulletSpeedMult,
         float bulletsPerBurstMult, float bulletSpreadMult, float magazineSizeMult, float burstDelayMult, float reloadspeedMult, float fireDelayMult,
-        float moveSpeedMult, float maxHealthMult,
+        float moveSpeedMult, float jumpForceMult, float maxHealthMult,
         float maxTowerHealthMult, float targetingRangeMult,
         bool towerHasGun, bool seekingBullets
     ) {
@@ -80,8 +81,9 @@ public readonly struct PlayerRoundStats
         this.reloadSpeed = PlayerBaseStats.baseReloadSpeed * reloadspeedMult;
 
         this.moveSpeed = PlayerBaseStats.baseMoveSpeed * moveSpeedMult;
+        this.jumpForce = PlayerBaseStats.baseJumpForce * jumpForceMult;
         this.maxHealth = PlayerBaseStats.baseMaxHealth * maxHealthMult;
-
+        
         this.maxTowerHealth = PlayerBaseStats.baseMaxTowerHealth * maxTowerHealthMult;
         this.targetingRange = PlayerBaseStats.baseTargetingRange * targetingRangeMult;
         this.towerHasGun = towerHasGun;
