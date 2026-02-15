@@ -61,6 +61,27 @@ public readonly struct PlayerRoundStats
     public readonly bool towerHasGun, seekingBullets;
 
     // construct relative to base stats
+    // Backward-compatible constructor matching the old parameter list
+    public PlayerRoundStats(
+        float damageMult, float knockbackMult, float lifestealAdd, float bulletSpeedMult,
+        float bulletWavesMult, float bulletsPerWaveMult, float bulletSpreadMult, float magazineSizeMult, float burstDelayMult, float reloadspeedMult,
+        float moveSpeedMult, float jumpForceMult, float maxHealthMult,
+        float maxTowerHealthMult,
+        bool towerHasGun, bool seekingBullets
+    ) : this(
+        damageMult, knockbackMult, lifestealAdd, bulletSpeedMult,
+        /* bulletsPerBurstMult */ bulletWavesMult * bulletsPerWaveMult,
+        bulletSpreadMult, magazineSizeMult, burstDelayMult, reloadspeedMult, 
+        /* fireDelayMult (new) */ 1f,
+        moveSpeedMult, jumpForceMult, maxHealthMult,
+        maxTowerHealthMult, 
+        /* targetingRangeMult (new) */ 1f,
+        towerHasGun, seekingBullets
+    )
+    {
+    }
+
+    // New constructor including fireDelayMult and targetingRangeMult
     public PlayerRoundStats(
         float damageMult, float knockbackMult, float lifestealAdd, float bulletSpeedMult,
         float bulletsPerBurstMult, float bulletSpreadMult, float magazineSizeMult, float burstDelayMult, float reloadspeedMult, float fireDelayMult,
