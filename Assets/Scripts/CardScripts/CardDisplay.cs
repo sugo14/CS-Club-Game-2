@@ -9,7 +9,7 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public Image backgroundImage;   // Background (level-based)
     public Image CoverImage;        // Cover image
-
+    
     public TextMeshProUGUI cardNameText;
     public TextMeshProUGUI descriptionText;
 
@@ -35,13 +35,17 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         SetAllGraphicsColor(darkColor);
 
         if (cardButton != null)
+        {
             cardButton.onClick.AddListener(OnCardClicked);   //hook click
+        }
     }
 
     private void SetAllGraphicsColor(Color color)
     {
         foreach (var g in allGraphics)
+        {
             g.color = color;
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -62,20 +66,32 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void SetUpgrade(Upgrade upgrade)
     {
         currentUpgrade = upgrade;
+        Debug.Log("PLEASE WORK");
 
         if (cardNameText != null)
+        {
             cardNameText.text = upgrade.name;
+        }
 
         if (descriptionText != null)
+        {
             descriptionText.text = upgrade.description;
+        }
 
         // COVER IMAGE
         if (CoverImage != null)
         {
             if (upgrade.id >= 0 && upgrade.id < coverSprites.Length)
+            {
                 CoverImage.sprite = coverSprites[upgrade.id];
+                Debug.Log("Null Image");
+            
+            }
             else
+            {
+                Debug.Log("Null Image");
                 CoverImage.sprite = null;
+            }
         }
 
         // BACKGROUND IMAGE (by level)
@@ -83,9 +99,13 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             int index = upgrade.level - 1;
             if (index >= 0 && index < backgroundSprites.Length)
+            {
                 backgroundImage.sprite = backgroundSprites[index];
+            }
             else
+            {
                 backgroundImage.sprite = null;
+            }
         }
 
         SetAllGraphicsColor(darkColor);
@@ -107,6 +127,8 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void ClearCoverImage()
     {
         if (CoverImage != null)
+        {
             CoverImage.sprite = null;
+        }
     }
 }

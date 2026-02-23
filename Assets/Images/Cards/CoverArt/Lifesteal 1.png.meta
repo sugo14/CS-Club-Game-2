@@ -128,7 +128,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Lifesteal 1_0: 3278312837307418135
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

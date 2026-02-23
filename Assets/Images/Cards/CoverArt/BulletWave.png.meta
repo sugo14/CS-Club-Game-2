@@ -128,7 +128,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BulletWave_0: 6891397279849045590
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
