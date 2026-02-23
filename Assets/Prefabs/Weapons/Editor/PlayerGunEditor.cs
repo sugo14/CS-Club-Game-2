@@ -2,14 +2,14 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(PlayerGun))]
-public class PlayerGunEditor : Editor
+[CustomEditor(typeof(Gun))]
+public class GunEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        
-        PlayerGun script = (PlayerGun)target;
+
+        Gun script = (Gun)target;
         
         if (GUILayout.Button("Fire"))
         {

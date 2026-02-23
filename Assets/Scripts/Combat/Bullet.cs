@@ -48,6 +48,7 @@ public class Bullet : MonoBehaviour
     public void setup(BulletState state)
     {
         bulletState = state;
+        
         if (rb == null)
         {
             rb = GetComponent<Rigidbody2D>();

@@ -9,16 +9,18 @@ public static class PlayerBaseStats
     public const float baseBulletSpeed = 5f;
 
 
-    public const int baseBulletWaves = 1;
-    public const int baseBulletsPerWave = 1;
+    public const int baseBulletsPerBurst = 1;
     public const float baseBurstDelay = 50f; //milliseconds
     public const float baseBulletSpread = 0.08f; // deg
     public const float baseReloadSpeed = 2f;
+    public const float baseFireDelay = 0.1f;
     public const int baseMagazineSize = 3;
 
     public const float baseMoveSpeed = 5f;
     public const float baseJumpForce = 15f;
     public const float baseMaxHealth = 100;
+
+    public const float baseTargetingRange = 5f;
 
     public const float baseMaxTowerHealth = 200;
 }
@@ -46,33 +48,54 @@ public readonly struct PlayerRoundStats
     public readonly float damage, knockback, lifesteal, bulletSpeed;
 
     // bullet firing stats
-    public readonly int bulletWaves, bulletsPerWave, magazineSize;
-    public readonly float bulletSpread, burstDelay, reloadSpeed;
+    public readonly int  bulletsPerBurst, magazineSize;
+    public readonly float bulletSpread, burstDelay, reloadSpeed, fireDelay;
     
     // player stats
     public readonly float moveSpeed, jumpForce, maxHealth;
 
     // tower stats
-    public readonly float maxTowerHealth;
+    public readonly float maxTowerHealth, targetingRange;
 
     // specific upgrade flags
     public readonly bool towerHasGun, seekingBullets;
 
     // construct relative to base stats
+    // Backward-compatible constructor matching the old parameter list
     public PlayerRoundStats(
         float damageMult, float knockbackMult, float lifestealAdd, float bulletSpeedMult,
         float bulletWavesMult, float bulletsPerWaveMult, float bulletSpreadMult, float magazineSizeMult, float burstDelayMult, float reloadspeedMult,
         float moveSpeedMult, float jumpForceMult, float maxHealthMult,
         float maxTowerHealthMult,
         bool towerHasGun, bool seekingBullets
+    ) : this(
+        damageMult, knockbackMult, lifestealAdd, bulletSpeedMult,
+        /* bulletsPerBurstMult */ bulletWavesMult * bulletsPerWaveMult,
+        bulletSpreadMult, magazineSizeMult, burstDelayMult, reloadspeedMult, 
+        /* fireDelayMult (new) */ 1f,
+        moveSpeedMult, jumpForceMult, maxHealthMult,
+        maxTowerHealthMult, 
+        /* targetingRangeMult (new) */ 1f,
+        towerHasGun, seekingBullets
+    )
+    {
+    }
+
+    // New constructor including fireDelayMult and targetingRangeMult
+    public PlayerRoundStats(
+        float damageMult, float knockbackMult, float lifestealAdd, float bulletSpeedMult,
+        float bulletsPerBurstMult, float bulletSpreadMult, float magazineSizeMult, float burstDelayMult, float reloadspeedMult, float fireDelayMult,
+        float moveSpeedMult, float jumpForceMult, float maxHealthMult,
+        float maxTowerHealthMult, float targetingRangeMult,
+        bool towerHasGun, bool seekingBullets
     ) {
         this.damage = PlayerBaseStats.baseDamage * damageMult;
         this.knockback = PlayerBaseStats.baseKnockback * knockbackMult;
         this.lifesteal = PlayerBaseStats.baseLifesteal + lifestealAdd;
         this.bulletSpeed = PlayerBaseStats.baseBulletSpeed * bulletSpeedMult;
+        this.fireDelay = PlayerBaseStats.baseFireDelay * fireDelayMult;
 
-        this.bulletWaves = Mathf.RoundToInt(PlayerBaseStats.baseBulletWaves * bulletWavesMult);
-        this.bulletsPerWave = Mathf.RoundToInt(PlayerBaseStats.baseBulletsPerWave * bulletsPerWaveMult);
+        this.bulletsPerBurst = Mathf.RoundToInt(PlayerBaseStats.baseBulletsPerBurst * bulletsPerBurstMult);
         this.bulletSpread = PlayerBaseStats.baseBulletSpread * bulletSpreadMult;
         this.magazineSize = Mathf.RoundToInt(PlayerBaseStats.baseMagazineSize * magazineSizeMult);
         this.burstDelay = PlayerBaseStats.baseBurstDelay * burstDelayMult;
@@ -83,7 +106,7 @@ public readonly struct PlayerRoundStats
         this.maxHealth = PlayerBaseStats.baseMaxHealth * maxHealthMult;
         
         this.maxTowerHealth = PlayerBaseStats.baseMaxTowerHealth * maxTowerHealthMult;
-
+        this.targetingRange = PlayerBaseStats.baseTargetingRange * targetingRangeMult;
         this.towerHasGun = towerHasGun;
         this.seekingBullets = seekingBullets;
     }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerGun : MonoBehaviour
+public class Gun : MonoBehaviour
 {
     //TODO: Set this through code from the registery
     [SerializeField]
@@ -15,14 +15,15 @@ public class PlayerGun : MonoBehaviour
     float reloadspeed = 2f; // seconds
     [SerializeField]
     int magazineSize = 3;
-
+    [SerializeField]
+    float fireDelay = 0.5f; // seconds
 
     //Firing Stats
     [SerializeField]
     float spreadAngle = 0.08f; //degrees
     [SerializeField]
-    float bulletSpeed = 5f;
-
+    float bulletSpeed = 10f;
+    
     //Burst Stats
     [SerializeField]
     int bulletsPerBurst = 1;
@@ -39,8 +40,12 @@ public class PlayerGun : MonoBehaviour
     [SerializeField]
     float baseLifesteal = 0f;
 
+    [SerializeField]
+    float targetingRange = 5f;
 
 
+    [SerializeField]
+    bool turretMode = false;
 
     [SerializeField]
     private GameObject bulletPrefab;
@@ -49,24 +54,64 @@ public class PlayerGun : MonoBehaviour
     int nextBulletId = 000;
 
     bool isReloading = false;
+    float lastFireTime = -Mathf.Infinity; // Track when we last fired
 
     [SerializeField]
     int ammo;
+
+    CircleCollider2D targetAreaCol;
 
 
     void Start()
     {
         ammo = magazineSize;
+        targetAreaCol = GetComponent<CircleCollider2D>();
+        targetAreaCol.radius = targetingRange;
+        targetAreaCol.isTrigger = true; // Make sure it's a trigger
+
     }
 
     void Update()
     {
+        if (turretMode)
+        {
+            Transform targetTrans = FindClosestVisibleTarget(
+                transform.position,
+                new ContactFilter2D
+                {
+                    useLayerMask = true,
+                    layerMask = LayerMask.GetMask("Player"),
+                    useTriggers = false
+                },
+                LayerMask.GetMask("Solid", "Player")
+            );
 
+            if (targetTrans != null)
+            {
+                Vector2 direction = (targetTrans.position - transform.position).normalized;
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0, 0, angle);
+                
+                // Only fire if enough time has passed since last fire
+                if (Time.time - lastFireTime >= fireDelay)
+                {
+                    Fire();
+                    
+                }
+            }
+        }
     }
 
     public void Fire()
     {
-        StartCoroutine(FireBurstCoroutine());
+        if (Time.time - lastFireTime >= fireDelay)
+        {
+            lastFireTime = Time.time;
+            StartCoroutine(FireBurstCoroutine());
+
+        }
+
+        
     }
 
     IEnumerator FireBurstCoroutine()
@@ -79,7 +124,6 @@ public class PlayerGun : MonoBehaviour
             }
             else
             {
-                Debug.Log("Out of Ammo!");
 
                 Reload();
 
@@ -98,8 +142,6 @@ public class PlayerGun : MonoBehaviour
     {
         if (!isReloading)
         {
-            Debug.Log("Reload");
-            //Create a coroutine to handle reloading over time
             StartCoroutine(ReloadCoroutine());
             isReloading = true;
         }
@@ -108,8 +150,7 @@ public class PlayerGun : MonoBehaviour
     // Create and initialize a new bullet
     GameObject CreateBullet()
     {
-
-        //Debug.Log("CreateBullet");
+        //Replace with code to create bullet state from registry once players implemeneted
         // Create a new bullet state
         BulletState newBulletState = new BulletState
         {
@@ -159,12 +200,49 @@ public class PlayerGun : MonoBehaviour
     IEnumerator ReloadCoroutine()
     {
         yield return new WaitForSeconds(reloadspeed);
-        Debug.Log("Reloaded");
         // Implement reload logic here (e.g., reset ammo count)
         ammo = magazineSize;
         isReloading = false;
 
     }
+
+    public Transform FindClosestVisibleTarget(
+    Vector2 origin,
+    ContactFilter2D contactFilter,
+    LayerMask obstacleMask)
+    {
+        List<Collider2D> hits = new List<Collider2D>();
+        int count = targetAreaCol.Overlap(contactFilter, hits);
+        
+        Transform closest = null;
+        float closestDist = float.PositiveInfinity;
+
+        foreach (var hit in hits)
+        {
+            Vector2 dir = (hit.bounds.center - (Vector3)origin);
+            float dist = dir.magnitude;
+
+            RaycastHit2D los = Physics2D.Raycast(
+                origin,
+                dir.normalized,
+                dist,
+                obstacleMask
+            );
+
+            // If the first thing we hit is the target, it's visible
+            if (los.collider == hit)
+            {
+                if (dist < closestDist)
+                {
+                    closestDist = dist;
+                    closest = hit.transform;
+                }
+            }
+        }
+
+        return closest;
+    }
+
 
 
 }
