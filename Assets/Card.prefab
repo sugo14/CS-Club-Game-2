@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardButton: {fileID: 1718717913471066307}
   backgroundImage: {fileID: 1900612811329131249}
-  CoverImage: {fileID: 3717801287873246595}
+  coverImage: {fileID: 0}
   cardNameText: {fileID: 1990711787201580121}
   descriptionText: {fileID: 3281224170319295828}
   coverSprites:

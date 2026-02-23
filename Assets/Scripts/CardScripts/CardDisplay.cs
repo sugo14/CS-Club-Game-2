@@ -21,18 +21,21 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private Color darkColor;
     private Color brightColor;
 
+    private Upgrade currentUpgrade;          // stores this card's upgrade
+    private UpgradeCardSpawner spawner;      // reference to spawner
+
     private void Awake()
     {
-        // Grab EVERYTHING under this card
         allGraphics = GetComponentsInChildren<Graphic>(true);
 
         brightColor = Color.white;
-
         darkColor = brightColor * 0.6f;
         darkColor.a = 1f;
 
-        // Start dark
         SetAllGraphicsColor(darkColor);
+
+        if (cardButton != null)
+            cardButton.onClick.AddListener(OnCardClicked);   //hook click
     }
 
     private void SetAllGraphicsColor(Color color)
@@ -51,25 +54,31 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         SetAllGraphicsColor(darkColor);
     }
 
+    public void SetSpawner(UpgradeCardSpawner spawnerRef)
+    {
+        spawner = spawnerRef;
+    }
+
     public void SetUpgrade(Upgrade upgrade)
     {
-        // Text
+        currentUpgrade = upgrade;
+
         if (cardNameText != null)
             cardNameText.text = upgrade.name;
 
         if (descriptionText != null)
             descriptionText.text = upgrade.description;
 
-        // Cover image (by upgrade ID)
+        // COVER IMAGE
         if (CoverImage != null)
         {
-            if (upgrade.id < coverSprites.Length)
+            if (upgrade.id >= 0 && upgrade.id < coverSprites.Length)
                 CoverImage.sprite = coverSprites[upgrade.id];
             else
                 CoverImage.sprite = null;
         }
 
-        // Background image (by level)
+        // BACKGROUND IMAGE (by level)
         if (backgroundImage != null)
         {
             int index = upgrade.level - 1;
@@ -79,8 +88,20 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 backgroundImage.sprite = null;
         }
 
-        // Force dark after reroll
         SetAllGraphicsColor(darkColor);
+    }
+
+    private void OnCardClicked()
+    {
+        if (spawner != null)
+        {
+            spawner.RegisterChoice(currentUpgrade);
+            Debug.Log("Clicked: " + currentUpgrade.name); //confirm click
+        }
+        else
+        {
+            Debug.LogWarning("Spawner not set on card");
+        }
     }
 
     public void ClearCoverImage()
