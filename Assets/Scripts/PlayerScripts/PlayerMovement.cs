@@ -1,13 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] public float acceleration = 0.6f;
+    [SerializeField] public float acceleration = 0.8f;
     [SerializeField] public LayerMask groundLayer;
 
     Rigidbody2D RB;
@@ -24,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
 
         maxSpeed = playerHandler.playerState.roundStats.moveSpeed;
         jumpForce = playerHandler.playerState.roundStats.jumpForce;
-        Debug.Log(jumpForce);
     }
 
     void FixedUpdate()
@@ -34,23 +30,30 @@ public class PlayerMovement : MonoBehaviour
         // Accelerate towards target velocity
         if (targetVelocityX != 0)
         {
-            if (Math.Abs(RB.velocity.x) < Math.Abs(targetVelocityX) ||
-                Math.Sign(targetVelocityX) != Math.Sign(RB.velocity.x))
-                RB.AddForceX(Math.Sign(targetVelocityX) * acceleration, ForceMode2D.Impulse);
 
+            // Keeping correct speed
+            // (This causes fuluctations in speed when input is constaint but
+            //  provides a smoother feel when slowing down with controler)
+            if (!(Math.Abs(RB.velocity.x) > Math.Abs(targetVelocityX)))
+            {
+                if (Math.Abs(RB.velocity.x) < Math.Abs(targetVelocityX) ||
+                    Math.Sign(targetVelocityX) != Math.Sign(RB.velocity.x))
+                    RB.AddForceX(Math.Sign(targetVelocityX) * acceleration, ForceMode2D.Impulse);    
+            }
 
             // Clamping to max speed
-            if (Math.Abs(RB.velocity.x) > Math.Abs(targetVelocityX))
+            if (Math.Abs(RB.velocity.x) > maxSpeed)
             {
                 RB.velocityX = targetVelocityX;
             }
+
         }
     }
 
     // Checks if the player is grounded
     void CheckGrounded()
     {
-        RaycastHit2D groundHit = Physics2D.BoxCast(transform.position, transform.localScale, 0f, Vector2.down, 1.1f, groundLayer);
+        RaycastHit2D groundHit = Physics2D.BoxCast(transform.position, transform.localScale, 0f, Vector2.down, 0.3f, groundLayer);
         if (groundHit.collider != null)
         {
             isGrounded = true;
