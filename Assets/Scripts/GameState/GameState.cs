@@ -28,6 +28,7 @@ public struct PlayerGameProfile
     public int id;
     public string playerName;
     public List<Upgrades.ID> upgrades;
+    public int gamePadId;
 
     public readonly PlayerState GenerateInitialPlayerState()
     {
