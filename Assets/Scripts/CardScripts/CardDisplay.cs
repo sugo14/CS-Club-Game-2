@@ -8,8 +8,9 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Button cardButton;
 
     public Image backgroundImage;   // Background (level-based)
-    public Image CoverImage;        // Cover image
-    
+    public GameObject coverImageObject;       
+    Image coverImage;               // Cover image
+
     public TextMeshProUGUI cardNameText;
     public TextMeshProUGUI descriptionText;
 
@@ -66,7 +67,6 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void SetUpgrade(Upgrade upgrade)
     {
         currentUpgrade = upgrade;
-        Debug.Log("PLEASE WORK");
 
         if (cardNameText != null)
         {
@@ -79,23 +79,24 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
 
         // COVER IMAGE
-        if (CoverImage != null)
+        if (!coverImage.sprite)
         {
+            Debug.Log("Setting image " + upgrade.name + " #" + upgrade.id);
             if (upgrade.id >= 0 && upgrade.id < coverSprites.Length)
             {
-                CoverImage.sprite = coverSprites[upgrade.id];
-                Debug.Log("Null Image");
+                Debug.Log("Good Image " + upgrade.id);
+                coverImage.sprite = coverSprites[upgrade.id];
             
             }
             else
             {
                 Debug.Log("Null Image");
-                CoverImage.sprite = null;
+                coverImage.sprite = null;
             }
         }
 
         // BACKGROUND IMAGE (by level)
-        if (backgroundImage != null)
+        if (backgroundImage)
         {
             int index = upgrade.level - 1;
             if (index >= 0 && index < backgroundSprites.Length)
@@ -113,7 +114,7 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void OnCardClicked()
     {
-        if (spawner != null)
+        if (spawner)
         {
             spawner.RegisterChoice(currentUpgrade);
             Debug.Log("Clicked: " + currentUpgrade.name); //confirm click
@@ -126,9 +127,12 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void ClearCoverImage()
     {
-        if (CoverImage != null)
+        // Assigning coverImage
+        coverImage = coverImageObject.GetComponent<Image>();
+
+        if (coverImage.sprite)
         {
-            CoverImage.sprite = null;
+            coverImage.sprite = null;
         }
     }
 }
