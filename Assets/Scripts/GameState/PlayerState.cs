@@ -17,7 +17,7 @@ public static class PlayerBaseStats
     public const int baseMagazineSize = 3;
 
     public const float baseMoveSpeed = 10f;
-    public const float baseJumpForce = 15f;
+    public const float baseJumpForce = 12f;
     public const float baseMaxHealth = 100;
 
     public const float baseMaxTowerHealth = 200;

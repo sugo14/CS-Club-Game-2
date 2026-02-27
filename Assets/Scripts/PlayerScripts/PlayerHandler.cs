@@ -7,6 +7,7 @@ public class PlayerHandler : MonoBehaviour
     [NonSerialized] public GameStateHandler gameStateHandler; // assigned on instantiation in GameStateHandler
     [NonSerialized] public int playerID; // assigned on instantiation in GameStateHandler
     [NonSerialized] public PlayerState playerState;
+    [NonSerialized] public int animationIndex;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,8 @@ public class PlayerHandler : MonoBehaviour
 
         // Calling the setup for the movement script
         GetComponent<PlayerMovement>().SetupVars();
+        // Setting animation to show
+        GetComponent<Animator>().SetLayerWeight(animationIndex, 1);
     }
 
 

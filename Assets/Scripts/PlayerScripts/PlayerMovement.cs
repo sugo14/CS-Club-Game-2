@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] public float acceleration = 0.8f;
-    [SerializeField] public LayerMask groundLayer;
+    public float acceleration = 0.8f;
+    public LayerMask groundLayer;
 
     Rigidbody2D RB;
     PlayerHandler playerHandler;
@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
         {
 
             // Keeping correct speed
-            // (This causes fuluctations in speed when input is constaint but
+            // (This causes fulctuations in speed when input is less than max but
             //  provides a smoother feel when slowing down with controler)
             if (!(Math.Abs(RB.velocity.x) > Math.Abs(targetVelocityX)))
             {
@@ -53,22 +53,24 @@ public class PlayerMovement : MonoBehaviour
     // Checks if the player is grounded
     void CheckGrounded()
     {
-        RaycastHit2D groundHit = Physics2D.BoxCast(transform.position, transform.localScale, 0f, Vector2.down, 0.3f, groundLayer);
-        if (groundHit.collider != null)
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
-        }
-        //Debug.Log("Is Grounded: " + isGrounded);
+        RaycastHit2D groundHit = Physics2D.BoxCast(transform.position, transform.localScale,
+                                                   0f, Vector2.down, 0.3f, groundLayer);
+        isGrounded = groundHit.collider != null;
+
     }
 
 
     public void Move(InputAction.CallbackContext c)
     {
-        targetVelocityX = c.ReadValue<Vector2>().x * maxSpeed;
+        float inputX = c.ReadValue<Vector2>().x;
+        if (Math.Abs(inputX) > 0.1)
+        {
+            targetVelocityX = c.ReadValue<Vector2>().x * maxSpeed;
+        }
+        else
+        {
+            targetVelocityX = 0;
+        }
     }
 
     public void Jump(InputAction.CallbackContext c)

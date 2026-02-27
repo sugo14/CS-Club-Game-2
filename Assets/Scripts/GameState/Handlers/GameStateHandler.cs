@@ -1,24 +1,33 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
 public class GameStateHandler : MonoBehaviour
-{ 
-    [SerializeField] public int roundsToWin = 3;
-    [SerializeField] public GameObject playerPrefab;
-    [SerializeField] public bool debugStartRound = false;
+{
+    [Header("Player Spawn Settings")]
+    public GameObject playerPrefab;
+    public Vector2[] spawnPoints = new Vector2[4];
+    public int[] playerAnimations = new int[4];
+    [Header("Game Settings")]
+    public int roundsToWin = 3;
+    [Header("Debug")]
+    public bool SpawnKeyboardPlayer = false;
 
     public GameState gameState;
 
+    [NonSerialized]
+    public int playerCount = 0;
+    GUIHandler UIHandler;
     Gamepad[] usedGamePads = new Gamepad[4];
-    bool lastDebugStartRound = false;
-    int playerCount = 0;
 
 
-    // Start is called before the first frame update
     void Start()
     {
+        UIHandler = GetComponent<GUIHandler>();
+        UIHandler.LinkGSH(this);
+
         gameState = new GameState
         {
             status = GameStatus.Lobby,
@@ -26,8 +35,14 @@ public class GameStateHandler : MonoBehaviour
             roundsToWin = 3
         };
 
-        // Adding a player for testing
-        AddNewPlayerProfile();
+        // Adding a player controlled by the keyboard for testing
+        if (SpawnKeyboardPlayer)
+        {
+            AddNewPlayerProfile();
+        }
+
+        // Showing the lobby menu
+        UIHandler.LobbyMenu();
     }
 
 
@@ -59,10 +74,18 @@ public class GameStateHandler : MonoBehaviour
     }
 
     // Starts a new round
-    void StartRound()
+    public void StartRound()
     {
+        // Preventing starting a new round if already in one or if there are no players
+        if (gameState.status == GameStatus.InRound || playerCount < 1) 
+        { 
+            return; 
+        }
+
         // Setting up the new round
         gameState.status = GameStatus.InRound;
+        UIHandler.LobbyMenu(false); // Hiding the lobby menu
+
         gameState.currentRound = new()
         {
             level = LevelID.Level1,
@@ -90,23 +113,17 @@ public class GameStateHandler : MonoBehaviour
                     controlScheme: "Gamepad",
                     pairWithDevice: usedGamePads[i]).gameObject;
             }
-            // Setting up the player handler
+            // Setting up the player
             currentPlayer.GetComponent<PlayerHandler>().gameStateHandler = this;
             currentPlayer.GetComponent<PlayerHandler>().playerID = i;
+            currentPlayer.transform.position = spawnPoints[i];
+            currentPlayer.GetComponent<PlayerHandler>().animationIndex = playerAnimations[i];
         }
     }
 
 
-    // Update is called once per frame
     void Update()
     {
-        // Round start debug triger
-        if (debugStartRound != lastDebugStartRound)
-        {
-            StartRound();
-        }
-        lastDebugStartRound = debugStartRound;
-
         if (gameState.status == GameStatus.Lobby)
         {
             // Checking for new players
@@ -123,6 +140,7 @@ public class GameStateHandler : MonoBehaviour
                     }
                     usedGamePads[playerCount] = gamePad;
                     AddNewPlayerProfile(gamePad.deviceId);
+                    UIHandler.UpdatePlayerCount(); // Updating the lobby menu to show the new player
                 }
             }
         }
