@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1499922657815020432}
   - component: {fileID: 1557233088793631472}
+  - component: {fileID: 4666207886195884021}
   m_Layer: 0
   m_Name: GameStateHandler
   m_TagString: Untagged
@@ -44,5 +45,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab450282bb626cd4c903a9c02562f402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundsToWin: 3
   playerPrefab: {fileID: 5909166072999202131, guid: b0fcbb68181066444a58252c465d3e23, type: 3}
+  spawnPoints:
+  - {x: -2, y: 0}
+  - {x: 2, y: 0}
+  - {x: 4, y: 0}
+  - {x: -4, y: 0}
+  playerAnimations: 00000000010000000000000001000000
+  roundsToWin: 3
+  SpawnKeyboardPlayer: 0
+--- !u!114 &4666207886195884021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866970338665276334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad60d86ba005dc94ba939d062ef82210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lobbyMenu: {fileID: 0}
+  startButton: {fileID: 0}
+  playerCountTextBox: {fileID: 0}

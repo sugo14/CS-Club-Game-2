@@ -675,11 +675,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1284783975}
   m_CullTransparentMesh: 1
---- !u!1 &1654013856 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 866970338665276334, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-  m_PrefabInstance: {fileID: 3190889387105923127}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1777314029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,27 +995,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
   m_PrefabInstance: {fileID: 3190889387105923127}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1654013856}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab450282bb626cd4c903a9c02562f402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2075305847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1654013856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad60d86ba005dc94ba939d062ef82210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lobbyMenu: {fileID: 771387675}
-  startButton: {fileID: 0}
-  playerCountTextBox: {fileID: 1960220222}
 --- !u!1001 &3190889387105923127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1074,14 +1054,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerCountTextBox
-      value: 
-      objectReference: {fileID: 1960220222}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: MultiplayerEventSystem
-      value: 
-      objectReference: {fileID: 1965230498}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
       propertyPath: spawnPoints.Array.data[0].x
       value: -2
       objectReference: {fileID: 0}
@@ -1090,68 +1062,12 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[0].a
-      value: 1
+      propertyPath: spawnPoints.Array.data[2].x
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[0].b
-      value: 0.21322441
-      objectReference: {fileID: 0}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[0].g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[0].r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[1].a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[1].b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[1].g
-      value: 0.66271544
-      objectReference: {fileID: 0}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[1].r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[2].a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[2].b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[2].g
-      value: 0.59385926
-      objectReference: {fileID: 0}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[2].r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[3].a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[3].b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[3].g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: playerColours.Array.data[3].r
-      value: 0.56318617
+      propertyPath: spawnPoints.Array.data[3].x
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
       propertyPath: 'playerAnimations.Array.data[1]'
@@ -1161,13 +1077,18 @@ PrefabInstance:
       propertyPath: 'playerAnimations.Array.data[3]'
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4666207886195884021, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
+      propertyPath: lobbyMenu
+      value: 
+      objectReference: {fileID: 771387675}
+    - target: {fileID: 4666207886195884021, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
+      propertyPath: playerCountTextBox
+      value: 
+      objectReference: {fileID: 1960220222}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 866970338665276334, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2075305847}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
