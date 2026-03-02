@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public float acceleration = 0.8f;
     public LayerMask groundLayer;
+    public Vector2 groundCheckOffset;
+    public Vector2 groundCheckSize;
 
     Rigidbody2D RB;
     PlayerHandler playerHandler;
@@ -50,11 +52,20 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube((Vector2)transform.position + groundCheckOffset, transform.localScale * groundCheckSize);
+    }
+
     // Checks if the player is grounded
     void CheckGrounded()
     {
-        RaycastHit2D groundHit = Physics2D.BoxCast(transform.position, transform.localScale,
-                                                   0f, Vector2.down, 0.3f, groundLayer);
+        Vector2 checkPostion = (Vector2)transform.position + groundCheckOffset;
+        Vector2 checkSize = transform.localScale * groundCheckSize;
+
+        RaycastHit2D groundHit = Physics2D.BoxCast(checkPostion, checkSize,
+                                                   0f, Vector2.down, 0.1f, groundLayer);
         isGrounded = groundHit.collider != null;
 
     }

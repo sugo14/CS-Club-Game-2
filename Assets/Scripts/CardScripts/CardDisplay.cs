@@ -35,10 +35,6 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         SetAllGraphicsColor(darkColor);
 
-        if (cardButton != null)
-        {
-            cardButton.onClick.AddListener(OnCardClicked);   //hook click
-        }
     }
 
     private void SetAllGraphicsColor(Color color)
@@ -68,12 +64,12 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         currentUpgrade = upgrade;
 
-        if (cardNameText != null)
+        if (cardNameText)
         {
             cardNameText.text = upgrade.name;
         }
 
-        if (descriptionText != null)
+        if (descriptionText)
         {
             descriptionText.text = upgrade.description;
         }
@@ -81,16 +77,13 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // COVER IMAGE
         if (!coverImage.sprite)
         {
-            Debug.Log("Setting image " + upgrade.name + " #" + upgrade.id);
             if (upgrade.id >= 0 && upgrade.id < coverSprites.Length)
             {
-                Debug.Log("Good Image " + upgrade.id);
                 coverImage.sprite = coverSprites[upgrade.id];
             
             }
             else
             {
-                Debug.Log("Null Image");
                 coverImage.sprite = null;
             }
         }
@@ -112,7 +105,7 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         SetAllGraphicsColor(darkColor);
     }
 
-    private void OnCardClicked()
+    public void OnCardClicked()
     {
         if (spawner)
         {
@@ -123,6 +116,7 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             Debug.LogWarning("Spawner not set on card");
         }
+        gameObject.SetActive(false);
     }
 
     public void ClearCoverImage()

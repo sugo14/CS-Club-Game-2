@@ -1,20 +1,37 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UpgradeCardSpawner : MonoBehaviour
 {
-    public CardUI[] cardUIs;
-
+    public GameObject cards;      // parent object of the 4 cards
     public List<Upgrade> pickedUpgrades = new List<Upgrade>();
 
-    public string UPGRADE1;
-    public string UPGRADE2;
-    public string UPGRADE3;
-    public string UPGRADE4;
+    // A array for the names of the picked upgrades
+    [System.NonSerialized]
+    public string[] upgrades = new string[4];
+
+    CardUI[] cardUIs = new CardUI[4];
+
+    void Start()
+    {
+        // Getting the CardUI components of the 4 cards
+        for (int i = 0; i < cards.transform.childCount; i++)
+        {
+            cardUIs[i] = cards.transform.GetChild(i).GetComponent<CardUI>();
+        }
+    }
 
     public void GiveRandomUpgrade()
     {
+        // If the cardUIs array was not populated in Start() from loading order, populate it now
+        if (!cardUIs[0])
+        {
+            for (int i = 0; i < cards.transform.childCount; i++)
+            {
+                cardUIs[i] = cards.transform.GetChild(i).GetComponent<CardUI>();
+            }
+        }
+
         foreach (var card in cardUIs)
         {
             card.ClearCoverImage();
@@ -33,16 +50,9 @@ public class UpgradeCardSpawner : MonoBehaviour
 
         int count = pickedUpgrades.Count;
 
-        if (count == 1) UPGRADE1 = upgrade.name;
-        if (count == 2) UPGRADE2 = upgrade.name;
-        if (count == 3) UPGRADE3 = upgrade.name;
-        if (count == 4) UPGRADE4 = upgrade.name;
+        upgrades[count - 1] = upgrade.name;
 
         Debug.Log("Picked #" + count + " " + upgrade.name);
     }
 
-    private void Start()
-    {
-        GiveRandomUpgrade();
-    }
 }

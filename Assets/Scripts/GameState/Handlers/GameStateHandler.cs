@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +22,7 @@ public class GameStateHandler : MonoBehaviour
     public int playerCount = 0;
     GUIHandler UIHandler;
     Gamepad[] usedGamePads = new Gamepad[4];
+    bool[] playersAlive = new bool[4];
 
 
     void Start()
@@ -30,8 +32,10 @@ public class GameStateHandler : MonoBehaviour
 
         gameState = new GameState
         {
-            status = GameStatus.Lobby,
             playerProfiles = new PlayerGameProfile[4],
+            wins = new int[4],
+            status = GameStatus.Lobby,
+
             roundsToWin = 3
         };
 
@@ -92,6 +96,7 @@ public class GameStateHandler : MonoBehaviour
             players = new PlayerState[gameState.playerProfiles.Length]
         };
 
+        playersAlive = new bool[] { true, true, true, true };
 
         // Initializing players
         GameObject currentPlayer;
@@ -121,6 +126,42 @@ public class GameStateHandler : MonoBehaviour
         }
     }
 
+    void EndRound(int winnerID)
+    {
+        gameState.status = GameStatus.BetweenRounds;
+        gameState.wins[winnerID]++;
+        Debug.Log("Player " + winnerID + " wins the round!");
+
+
+
+        UIHandler.CardSelectMenu();
+    }
+
+    public void PlayerDeath(int playerID)
+    {
+        playersAlive[playerID] = false;
+
+        int deathCount = 0;
+        int winnerID = -1;
+
+        for (int i = 0; i < playerCount; i++)
+        {
+            if (playersAlive[i])
+            {
+                winnerID = i;
+            }
+            else
+            {
+                deathCount++;
+            }
+        }
+        Debug.Log("Player " + playerID + " died. Death count: " + deathCount);
+        if (deathCount == playerCount - 1)
+        {
+            EndRound(winnerID);
+        }
+    }
+    
 
     void Update()
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class towerHealth : MonoBehaviour
+public class TowerHealth : MonoBehaviour
 {
     public int TOWERHEALTH;
     public bool IS_DEAD; 

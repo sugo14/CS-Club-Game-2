@@ -2,23 +2,19 @@ using UnityEngine;
 
 public class EnableUi : MonoBehaviour
 {
-    public GameObject UI;
-    public towerHealth[] towerHealths;          // up to 4 towers
+    public GameObject cardSelectMenu;
+    public TowerHealth[] towerHealths;          // up to 4 towers
     public UpgradeCardSpawner UpgradeCardSpawner;
-
-    void Start()
-    {
-    }
 
     void Update()
     {
         if (AllTowersDead())
         {
             UpgradeCardSpawner.GiveRandomUpgrade();
-            UI.SetActive(true);
+            cardSelectMenu.SetActive(true);
 
             // reset so it doesn't trigger every frame
-            foreach (towerHealth tower in towerHealths)
+            foreach (TowerHealth tower in towerHealths)
             {
                 tower.IS_DEAD = false;
             }
@@ -30,7 +26,7 @@ public class EnableUi : MonoBehaviour
         if (towerHealths == null || towerHealths.Length == 0)
             return false;
 
-        foreach (towerHealth tower in towerHealths)
+        foreach (TowerHealth tower in towerHealths)
         {
             if (!tower.IS_DEAD)
                 return false;

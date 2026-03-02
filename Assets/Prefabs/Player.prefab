@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1669187236348044750}
   - component: {fileID: 4675542654691939039}
-  - component: {fileID: 5144688841828883656}
+  - component: {fileID: 3901354169283257410}
   - component: {fileID: 1637491016665886213}
   - component: {fileID: 3957877593966334617}
   - component: {fileID: 980299533946723815}
   - component: {fileID: -5377875866552900386}
-  - component: {fileID: 4650354449477570067}
+  - component: {fileID: 4069139530398824170}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -90,8 +90,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &5144688841828883656
-BoxCollider2D:
+--- !u!58 &3901354169283257410
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -125,17 +125,7 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.32, y: 0.32}
-  m_EdgeRadius: 0
+  m_Radius: 0.16
 --- !u!50 &1637491016665886213
 Rigidbody2D:
   serializedVersion: 4
@@ -148,7 +138,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 0.9216
+  m_Mass: 0.72382295
   m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 2
@@ -190,7 +180,9 @@ MonoBehaviour:
   acceleration: 0.6
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 256
+  groundCheckOffset: {x: 0, y: -0.56}
+  groundCheckSize: {x: 0.33, y: 0.06}
 --- !u!114 &-5377875866552900386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,12 +240,16 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e756076b-9aaa-4139-9cf6-be0c61be884c
     m_ActionName: 'Movement Controls/Move[/XInputControllerWindows/leftStick/x,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2881d49e-a29f-4bd7-8c40-d7d42b49c982
+    m_ActionName: 'Movement Controls/Attack[/Keyboard/e,/XInputControllerWindows1/rightTrigger]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movement Controls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!95 &4650354449477570067
+--- !u!95 &4069139530398824170
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0

@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21df6e7d11a47ea4c9a7ad8c3d0e03c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI: {fileID: 484503203}
+  cardSelectMenu: {fileID: 0}
   towerHealths:
   - {fileID: 461000044}
   - {fileID: 1184390843}
@@ -366,11 +366,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc5aa3ad2f3b724cb6873ab283141d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &484503203 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2264688894540536, guid: 0815f9d4af4865243bceac7d62d7a643, type: 3}
-  m_PrefabInstance: {fileID: 4811765873295144451}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &593658405 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6714563386377142650, guid: 0815f9d4af4865243bceac7d62d7a643, type: 3}
@@ -9470,7 +9465,7 @@ MonoBehaviour:
   Card2: {fileID: 2063507422}
   Card3: {fileID: 593658405}
   Card4: {fileID: 294201762}
-  UI: {fileID: 484503203}
+  cardSelectMenu: {fileID: 0}
 --- !u!4 &1912040088
 Transform:
   m_ObjectHideFlags: 0
