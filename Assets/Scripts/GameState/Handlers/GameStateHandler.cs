@@ -11,6 +11,9 @@ public class GameStateHandler : MonoBehaviour
     public GameObject playerPrefab;
     public Vector2[] spawnPoints = new Vector2[4];
     public int[] playerAnimations = new int[4];
+    [Header("Gun Spawn Settings")]
+    public GameObject gunPrefab;
+
     [Header("Tower Settings")]
     public GameObject towerPrefab;
     public Vector2[] towerSpawnPoints = new Vector2[4];
@@ -84,9 +87,9 @@ public class GameStateHandler : MonoBehaviour
     public void StartRound()
     {
         // Preventing starting a new round if already in one or if there are no players
-        if (gameState.status == GameStatus.InRound || playerCount < 1) 
-        { 
-            return; 
+        if (gameState.status == GameStatus.InRound || playerCount < 1)
+        {
+            return;
         }
 
         // Setting up the new round
@@ -104,6 +107,7 @@ public class GameStateHandler : MonoBehaviour
         // Initializing players
         GameObject currentPlayer;
         GameObject currentTower;
+        GameObject currentGun;
 
         for (int i = 0; i < playerCount; i++)
         {
@@ -112,7 +116,10 @@ public class GameStateHandler : MonoBehaviour
             currentTower.name = "Tower_" + i;
 
             gameState.currentRound.players[i] = gameState.playerProfiles[i].GenerateInitialPlayerState();
-            int currentGamepadID = gameState.playerProfiles[i].gamePadId; 
+
+            // Register tower in EntityRegistry
+            EntityRegistry.towers.Add(i, currentTower);
+            int currentGamepadID = gameState.playerProfiles[i].gamePadId;
 
             if (currentGamepadID == -1) // If the player doesn't have a gamepad, pair it with the keyboard
             {
@@ -126,14 +133,46 @@ public class GameStateHandler : MonoBehaviour
                     controlScheme: "Gamepad",
                     pairWithDevice: usedGamePads[i]).gameObject;
             }
+            // spawning gun
+            currentGun = Instantiate(gunPrefab, new Vector2(0, 0), Quaternion.identity);
+            currentGun.transform.SetParent(currentPlayer.transform, false);
+            currentGun.transform.position += new Vector3(0, 1, 0); 
+
+            // Setting up the gun
+            Gun gunComponent = currentGun.GetComponent<Gun>();
+            gunComponent.playerID = i;
+            gunComponent.playerState = gameState.currentRound.players[i];
+            gunComponent.player = currentPlayer;
+
             // Setting up the player
             currentPlayer.GetComponent<PlayerHandler>().gameStateHandler = this;
             currentPlayer.GetComponent<PlayerHandler>().playerID = i;
             currentPlayer.transform.position = spawnPoints[i];
             currentPlayer.GetComponent<PlayerHandler>().animationIndex = playerAnimations[i];
 
+            // Register player in EntityRegistry
+            EntityRegistry.players.Add(i, currentPlayer);
+
             // Pairing the player with their tower
-            currentTower.GetComponent<TowerHealth>().player = currentPlayer;
+            TowerHealth towerHealth = currentTower.GetComponent<TowerHealth>();
+            towerHealth.player = currentPlayer;
+            towerHealth.playerID = i;
+            towerHealth.playerState = gameState.currentRound.players[i];
+
+
+            // Try to find a Gun component in the tower's children
+            Gun towerGun = currentTower.GetComponentInChildren<Gun>();
+            if (towerGun != null)
+            {
+                towerGun.playerID = i;
+                towerGun.playerState = gameState.currentRound.players[i];
+                towerGun.player = currentPlayer;
+            }
+            else
+            {
+                Debug.LogWarning($"Tower {i} is supposed to have a gun but no Gun component found in children.");
+            }
+
 
         }
     }
@@ -173,7 +212,7 @@ public class GameStateHandler : MonoBehaviour
             EndRound(winnerID);
         }
     }
-    
+
 
     void Update()
     {

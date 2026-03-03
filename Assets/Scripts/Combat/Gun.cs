@@ -6,60 +6,34 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    //TODO: Set this through code from the registery
-    [SerializeField]
-    int playerID = 1;
-
-    //Gun stats
-    [SerializeField]
-    float reloadspeed = 2f; // seconds
-    [SerializeField]
-    int magazineSize = 3;
-    [SerializeField]
-    float fireDelay = 0.5f; // seconds
-
-    //Firing Stats
-    [SerializeField]
-    float spreadAngle = 0.08f; //degrees
-    [SerializeField]
-    float bulletSpeed = 10f;
-    
-    //Burst Stats
-    [SerializeField]
-    int bulletsPerBurst = 1;
-    [SerializeField]
-    float burstDelay = 50; //milliseconds
-
-    //bullet Stats
-    [SerializeField]
-    float baseDamage = 10f;
-    [SerializeField]
-    float baseKnockback = 5f;
-
-    //Special
-    [SerializeField]
-    float baseLifesteal = 0f;
-
-    [SerializeField]
-    float targetingRange = 5f;
-
-
-    [SerializeField]
-    bool turretMode = false;
+    [NonSerialized] public int playerID; // assigned on instantiation in GameStateHandler
+    [NonSerialized] public PlayerState playerState;
 
     [SerializeField]
     private GameObject bulletPrefab;
+    [SerializeField]
+    bool turretMode = false;
 
+    public GameObject player;
 
-    int nextBulletId = 000;
+    int nextBulletId = 0;
 
     bool isReloading = false;
-    float lastFireTime = -Mathf.Infinity; // Track when we last fired
+    float lastFireTime = -Mathf.Infinity;
 
-    [SerializeField]
     int ammo;
 
     CircleCollider2D targetAreaCol;
+
+    // Properties from PlayerState for convenience
+    private float reloadSpeed => playerState.roundStats.reloadSpeed;
+    private int magazineSize => playerState.roundStats.magazineSize;
+    private float fireDelay => playerState.roundStats.fireDelay;
+    private float spreadAngle => playerState.roundStats.bulletSpread;
+    private float bulletSpeed => playerState.roundStats.bulletSpeed;
+    private int bulletsPerBurst => playerState.roundStats.bulletsPerBurst;
+    private float burstDelay => playerState.roundStats.burstDelay;
+    private float targetingRange => playerState.roundStats.targetingRange;
 
 
     void Start()
@@ -80,10 +54,10 @@ public class Gun : MonoBehaviour
                 new ContactFilter2D
                 {
                     useLayerMask = true,
-                    layerMask = LayerMask.GetMask("Player"),
+                    layerMask = LayerMask.GetMask("Players"),
                     useTriggers = false
                 },
-                LayerMask.GetMask("Solid", "Player")
+                LayerMask.GetMask("Solid", "Players")
             );
 
             if (targetTrans != null)
@@ -150,21 +124,18 @@ public class Gun : MonoBehaviour
     // Create and initialize a new bullet
     GameObject CreateBullet()
     {
-        //Replace with code to create bullet state from registry once players implemeneted
-        // Create a new bullet state
-        BulletState newBulletState = new BulletState
-        {
-            id = playerID * 1000 + nextBulletId++,
-            ownerId = playerID,
-            //set this through code later
-            damage = baseDamage,
-            knockback = baseKnockback,
-            lifestealPercent = baseLifesteal,
+        // Generate bullet ID
+        int bulletId = playerID * 1000 + nextBulletId++;
 
+        // Calculate velocity
+        Vector2 velocity = bullet2DVelocity(bulletSpeed, transform.eulerAngles.z, spreadAngle);
 
-            velocity = bullet2DVelocity(bulletSpeed, transform.eulerAngles.z, spreadAngle),
-
-        };
+        // Create bullet state using PlayerRoundStats method
+        BulletState newBulletState = playerState.roundStats.GenerateBulletState(
+            bulletId,
+            playerID,
+            velocity
+        );
 
         // Instantiate the bullet prefab
         GameObject bulletGO = Instantiate(bulletPrefab, transform.position + transform.forward * 2, Quaternion.identity);
@@ -179,7 +150,7 @@ public class Gun : MonoBehaviour
         }
 
         // Register the bullet in the EntityRegistry
-        EntityRegistry.bullets.Add(newBulletState.id, bulletGO);
+        EntityRegistry.bullets.Add(bulletId, bulletGO);
 
         ammo--;
 
@@ -199,11 +170,9 @@ public class Gun : MonoBehaviour
 
     IEnumerator ReloadCoroutine()
     {
-        yield return new WaitForSeconds(reloadspeed);
-        // Implement reload logic here (e.g., reset ammo count)
+        yield return new WaitForSeconds(reloadSpeed);
         ammo = magazineSize;
         isReloading = false;
-
     }
 
     public Transform FindClosestVisibleTarget(
@@ -219,18 +188,33 @@ public class Gun : MonoBehaviour
 
         foreach (var hit in hits)
         {
+            // Skip if the hit is this gun's own collider or a child of this transform
+            if (hit.transform == transform || hit.transform.IsChildOf(transform))
+                continue;
+
+            if (hit.transform.TryGetComponent<PlayerHandler>(out PlayerHandler playerHandler))
+            {
+                if (playerHandler.playerID == playerID)
+                {
+                    // Skip if the hit is the player who owns this gun
+                    continue;
+                }
+            }
+
             Vector2 dir = (hit.bounds.center - (Vector3)origin);
             float dist = dir.magnitude;
 
+            // Start raycast slightly offset to avoid hitting self
             RaycastHit2D los = Physics2D.Raycast(
-                origin,
+                origin + dir.normalized * 0.1f,
                 dir.normalized,
-                dist,
+                dist - 0.1f,
                 obstacleMask
             );
 
             // If the first thing we hit is the target, it's visible
-            if (los.collider == hit)
+            // If nothing was hit (los.collider == null), the path is clear
+            if (los.collider == null || los.collider == hit)
             {
                 if (dist < closestDist)
                 {

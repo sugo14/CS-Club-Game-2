@@ -52,6 +52,12 @@ MonoBehaviour:
   - {x: 4, y: 0}
   - {x: -4, y: 0}
   playerAnimations: 00000000010000000000000001000000
+  gunPrefab: {fileID: 1135512481060114614, guid: 6511f9aee698d0e4a9148a25aed210b1, type: 3}
+  gunSpawnPoints:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
   towerPrefab: {fileID: 3486359081653632421, guid: 8877ecfccb2f37f458bbe3f2d34599b2, type: 3}
   towerSpawnPoints:
   - {x: 0, y: 0}

@@ -39,9 +39,10 @@ public class PlayerHandler : MonoBehaviour
 
     }
 
-    void InflictDamage(int damage)
+    public void InflictDamage(float damage)
     {
         currentHealth -= damage;
+        print(currentHealth);
         if (currentHealth <= 0)
         {
             Respawn();

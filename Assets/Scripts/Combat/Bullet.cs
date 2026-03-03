@@ -35,12 +35,24 @@ public class Bullet : MonoBehaviour
                 // Ignore collision with bullets from the same owner
                 return;
             }
+
         }
-            
+        if (collision.gameObject.TryGetComponent<PlayerHandler>(out PlayerHandler playerHandler))
+        {
+            if (playerHandler.playerID == bulletState.ownerId)
+            {
+                // Ignore collision with the player who fired the bullet
+                return;
+            }
+            playerHandler.InflictDamage(bulletState.damage);
+
+        }
         //Damage logic here
 
 
         // Destroy the bullet
+        EntityRegistry.bullets.Remove(bulletState.id);
+
         Destroy(gameObject);
 
     }
@@ -48,7 +60,7 @@ public class Bullet : MonoBehaviour
     public void setup(BulletState state)
     {
         bulletState = state;
-        
+
         if (rb == null)
         {
             rb = GetComponent<Rigidbody2D>();

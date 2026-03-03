@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1747310075937247894}
   - component: {fileID: 6918429222227875801}
   - component: {fileID: 7282149579043719644}
+  - component: {fileID: 4880714838041883727}
   m_Layer: 0
   m_Name: Player_Gun
   m_TagString: Untagged
@@ -28,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -100,10 +101,52 @@ MonoBehaviour:
   playerID: 1
   reloadspeed: 2
   magazineSize: 3
+  fireDelay: 0.5
   spreadAngle: 0.08
-  bulletSpeed: 5
+  bulletSpeed: 10
   bulletsPerBurst: 1
-  burstDelay: 0
-  lifesteal: 0
+  burstDelay: 50
+  baseDamage: 10
+  baseKnockback: 5
+  baseLifesteal: 0
+  targetingRange: 5
+  turretMode: 0
   bulletPrefab: {fileID: 4205022965172523014, guid: 52ddf0e2fb389564ea329d7379396c5e, type: 3}
+  player: {fileID: 0}
   ammo: 0
+--- !u!58 &4880714838041883727
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135512481060114614}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 5
