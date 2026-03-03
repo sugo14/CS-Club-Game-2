@@ -47,11 +47,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5909166072999202131, guid: b0fcbb68181066444a58252c465d3e23, type: 3}
   spawnPoints:
-  - {x: -2, y: 0}
-  - {x: 2, y: 0}
+  - {x: -12, y: 0}
+  - {x: 10.5, y: 0}
   - {x: 4, y: 0}
   - {x: -4, y: 0}
   playerAnimations: 00000000010000000000000001000000
+  towerPrefab: {fileID: 3486359081653632421, guid: 8877ecfccb2f37f458bbe3f2d34599b2, type: 3}
+  towerSpawnPoints:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
   roundsToWin: 3
   SpawnKeyboardPlayer: 0
 --- !u!114 &4666207886195884021
@@ -69,3 +75,5 @@ MonoBehaviour:
   lobbyMenu: {fileID: 0}
   startButton: {fileID: 0}
   playerCountTextBox: {fileID: 0}
+  cardSelectMenu: {fileID: 0}
+  cards: {fileID: 0}

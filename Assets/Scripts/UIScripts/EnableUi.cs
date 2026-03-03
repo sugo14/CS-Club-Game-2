@@ -16,7 +16,7 @@ public class EnableUi : MonoBehaviour
             // reset so it doesn't trigger every frame
             foreach (TowerHealth tower in towerHealths)
             {
-                tower.IS_DEAD = false;
+                tower.isDead = false;
             }
         }
     }
@@ -28,7 +28,7 @@ public class EnableUi : MonoBehaviour
 
         foreach (TowerHealth tower in towerHealths)
         {
-            if (!tower.IS_DEAD)
+            if (!tower.isDead)
                 return false;
         }
 

@@ -11,6 +11,9 @@ public class GameStateHandler : MonoBehaviour
     public GameObject playerPrefab;
     public Vector2[] spawnPoints = new Vector2[4];
     public int[] playerAnimations = new int[4];
+    [Header("Tower Settings")]
+    public GameObject towerPrefab;
+    public Vector2[] towerSpawnPoints = new Vector2[4];
     [Header("Game Settings")]
     public int roundsToWin = 3;
     [Header("Debug")]
@@ -100,9 +103,14 @@ public class GameStateHandler : MonoBehaviour
 
         // Initializing players
         GameObject currentPlayer;
+        GameObject currentTower;
+
         for (int i = 0; i < playerCount; i++)
         {
-           
+            // Spawning tower
+            currentTower = Instantiate(towerPrefab, towerSpawnPoints[i], Quaternion.identity);
+            currentTower.name = "Tower_" + i;
+
             gameState.currentRound.players[i] = gameState.playerProfiles[i].GenerateInitialPlayerState();
             int currentGamepadID = gameState.playerProfiles[i].gamePadId; 
 
@@ -123,6 +131,10 @@ public class GameStateHandler : MonoBehaviour
             currentPlayer.GetComponent<PlayerHandler>().playerID = i;
             currentPlayer.transform.position = spawnPoints[i];
             currentPlayer.GetComponent<PlayerHandler>().animationIndex = playerAnimations[i];
+
+            // Pairing the player with their tower
+            currentTower.GetComponent<TowerHealth>().player = currentPlayer;
+
         }
     }
 

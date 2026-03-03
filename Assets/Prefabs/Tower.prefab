@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: -1
   m_Sprite: {fileID: -1914700754, guid: aa294d4f4c194b944825e3aa8e91cbb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -99,9 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc5aa3ad2f3b724cb6873ab283141d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TOWERHEALTH: 500
-  IS_DEAD: 0
-  TOWER: {fileID: 3486359081653632421}
+  towerHealth: 0
+  isDead: 0
+  player: {fileID: 0}
 --- !u!61 &1611754002784183610
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

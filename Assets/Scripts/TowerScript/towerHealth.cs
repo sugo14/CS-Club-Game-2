@@ -2,24 +2,26 @@ using UnityEngine;
 
 public class TowerHealth : MonoBehaviour
 {
-    public int TOWERHEALTH;
-    public bool IS_DEAD; 
-    public GameObject TOWER;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public int towerHealth;
+    public bool isDead;
+    public GameObject player;
+
     void Start()
     {
-        IS_DEAD = false;
-        TOWER.SetActive(true);
+        isDead = false;
+        gameObject.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    void DammageTower(int dammage)
     {
-        
-        if(TOWERHEALTH == 0 && !IS_DEAD)
+        towerHealth -= dammage;
+        if (towerHealth <= 0 && !isDead)
         {
-            IS_DEAD = true;
-            TOWER.SetActive(false);
+            isDead = true;
+            player.GetComponent<PlayerHandler>().Kill();
+            gameObject.SetActive(false);
+
         }
     }
+
 }

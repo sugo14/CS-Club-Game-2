@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &179585006
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9082,28 +9082,40 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
+      propertyPath: towerPrefab
+      value: 
+      objectReference: {fileID: 3486359081653632421, guid: 8877ecfccb2f37f458bbe3f2d34599b2, type: 3}
+    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
       propertyPath: spawnPoints.Array.data[0].x
       value: -12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
+      propertyPath: spawnPoints.Array.data[0].y
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
       propertyPath: spawnPoints.Array.data[1].x
       value: 10.5
       objectReference: {fileID: 0}
     - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: spawnPoints.Array.data[2].x
-      value: 4
+      propertyPath: spawnPoints.Array.data[1].y
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: spawnPoints.Array.data[3].x
-      value: -4
+      propertyPath: towerSpawnPoints.Array.data[0].x
+      value: -14.7
       objectReference: {fileID: 0}
     - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: 'playerAnimations.Array.data[1]'
-      value: 1
+      propertyPath: towerSpawnPoints.Array.data[0].y
+      value: -3.2
       objectReference: {fileID: 0}
     - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
-      propertyPath: 'playerAnimations.Array.data[3]'
-      value: 1
+      propertyPath: towerSpawnPoints.Array.data[1].x
+      value: 13.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
+      propertyPath: towerSpawnPoints.Array.data[1].y
+      value: -3.2
       objectReference: {fileID: 0}
     - target: {fileID: 4666207886195884021, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
       propertyPath: cards

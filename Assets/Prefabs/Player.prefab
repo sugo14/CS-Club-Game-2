@@ -139,7 +139,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
   m_Mass: 0.72382295
-  m_LinearDrag: 1
+  m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 2
   m_Material: {fileID: 0}
@@ -165,6 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846e0f7cdfd095b43b5c698e3b0f23fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDead: 0
+  respawnTime: 3
 --- !u!114 &980299533946723815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,8 +183,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  groundCheckOffset: {x: 0, y: -0.56}
-  groundCheckSize: {x: 0.33, y: 0.06}
+  groundCheckOffset: {x: 0, y: -0.16}
+  groundCheckSize: {x: 0.33, y: 0.29}
 --- !u!114 &-5377875866552900386
 MonoBehaviour:
   m_ObjectHideFlags: 0
