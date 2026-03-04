@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class PlayerHandler : MonoBehaviour
 {
-
+    public GameObject healthBarPrefab;
+    public float healthBarHeight = 1;
 
     [NonSerialized] public GameStateHandler gameStateHandler; // assigned on instantiation in GameStateHandler
     [NonSerialized] public int playerID; // assigned on instantiation in GameStateHandler
     [NonSerialized] public PlayerState playerState;
     [NonSerialized] public int animationIndex;
+    [NonSerialized] public GameObject playerGun;
+
+    GameObject healthBar;
 
     bool wasDead = false;
     public bool isDead = false;
@@ -36,13 +40,32 @@ public class PlayerHandler : MonoBehaviour
 
         currentHealth = playerState.roundStats.maxHealth;
 
+        // Add health bar
+        healthBar = Instantiate(healthBarPrefab, transform.position + new Vector3(0, healthBarHeight), Quaternion.identity);
+        healthBar.transform.SetParent(transform, true);
+
+    }
+
+    void ShowPlayer(bool show = true)
+    {
+        GetComponent<SpriteRenderer>().enabled = show;
+        GetComponent<CircleCollider2D>().enabled = show;
+        healthBar.SetActive(show);
+        playerGun.SetActive(show);
+
+    }
+
+    void UpdateHealthBar()
+    {
+        healthBar.GetComponent<HealhBar>().setFill(currentHealth / playerState.roundStats.maxHealth);
 
     }
 
     public void InflictDamage(float damage)
     {
         currentHealth -= damage;
-        print(currentHealth);
+        UpdateHealthBar();
+
         if (currentHealth <= 0)
         {
             Respawn();
@@ -52,11 +75,14 @@ public class PlayerHandler : MonoBehaviour
     void Respawn()
     {
         tryRespawn = true;
-        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        ShowPlayer(false);
     }
 
     public void Kill()
     {
+        ShowPlayer(false);
+        currentHealth = 0;
+        UpdateHealthBar();
         isDead = true;
         gameObject.SetActive(false);
         gameStateHandler.PlayerDeath(playerID);
@@ -75,10 +101,10 @@ public class PlayerHandler : MonoBehaviour
                 tryRespawn = false;
                 respawnTimer = 0f;
                 currentHealth = playerState.roundStats.maxHealth;
+                UpdateHealthBar();
                 transform.position = gameStateHandler.spawnPoints[playerID];
                 isDead = false;
-                gameObject.GetComponent<SpriteRenderer>().enabled = true;
-                
+                ShowPlayer();
             }
 
         }
