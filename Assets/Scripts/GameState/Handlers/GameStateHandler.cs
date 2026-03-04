@@ -149,6 +149,7 @@ public class GameStateHandler : MonoBehaviour
             currentPlayer.GetComponent<PlayerHandler>().playerID = i;
             currentPlayer.transform.position = spawnPoints[i];
             currentPlayer.GetComponent<PlayerHandler>().animationIndex = playerAnimations[i];
+            currentPlayer.GetComponent<PlayerHandler>().playerGun = currentGun;
 
             // Register player in EntityRegistry
             EntityRegistry.players.Add(i, currentPlayer);

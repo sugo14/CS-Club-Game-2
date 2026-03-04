@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -3025087853863108388, guid: c5c97b68a5270c1418517fff436db1a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -98,22 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624ec89e959ffee4db2d04c6314b375c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 1
-  reloadspeed: 2
-  magazineSize: 3
-  fireDelay: 0.5
-  spreadAngle: 0.08
-  bulletSpeed: 10
-  bulletsPerBurst: 1
-  burstDelay: 50
-  baseDamage: 10
-  baseKnockback: 5
-  baseLifesteal: 0
-  targetingRange: 5
-  turretMode: 0
   bulletPrefab: {fileID: 4205022965172523014, guid: 52ddf0e2fb389564ea329d7379396c5e, type: 3}
+  turretMode: 0
   player: {fileID: 0}
-  ammo: 0
 --- !u!58 &4880714838041883727
 CircleCollider2D:
   m_ObjectHideFlags: 0

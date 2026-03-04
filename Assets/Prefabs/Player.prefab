@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846e0f7cdfd095b43b5c698e3b0f23fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBarPrefab: {fileID: 6366306823765760664, guid: 613507b63ceddb540bf91abaa5f476ed, type: 3}
   isDead: 0
   respawnTime: 3
 --- !u!114 &980299533946723815
@@ -179,6 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321dc0bcaf3c9394d9b26f4130b02aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunDistance: 0.4
   acceleration: 0.6
   groundLayer:
     serializedVersion: 2
@@ -243,7 +245,19 @@ MonoBehaviour:
     m_ActionId: e756076b-9aaa-4139-9cf6-be0c61be884c
     m_ActionName: 'Movement Controls/Move[/XInputControllerWindows/leftStick/x,/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 980299533946723815}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: Shoot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2881d49e-a29f-4bd7-8c40-d7d42b49c982
     m_ActionName: 'Movement Controls/Attack[/Keyboard/e,/XInputControllerWindows1/rightTrigger]'
   m_NeverAutoSwitchControlSchemes: 0
