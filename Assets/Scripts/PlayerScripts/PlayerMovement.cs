@@ -111,6 +111,9 @@ public class PlayerMovement : MonoBehaviour
             if (c.performed)
             {
                 RB.AddForceY(jumpForce, ForceMode2D.Impulse);
+
+                // Play jump sound effect
+                SFXManager.Instance.PlayerJump();
             }
         }
         if (c.canceled && RB.velocity.y > 0)

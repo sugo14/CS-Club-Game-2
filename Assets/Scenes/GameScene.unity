@@ -10219,6 +10219,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1728270020}
   m_CullTransparentMesh: 1
+--- !u!1 &1911344606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1911344608}
+  - component: {fileID: 1911344607}
+  m_Layer: 0
+  m_Name: SFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1911344607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911344606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def9b58e344c6f5498a92d2033fd54b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SFXObject: {fileID: 4353887002688472043, guid: a368c2281d6a3dd4da567e208aa458f7, type: 3}
+  volume: 0.5
+  playerJump: {fileID: 8300000, guid: c41378676d647de4281f651a55bae33f, type: 3}
+  playerShoot: {fileID: 8300000, guid: 882b8f34a6e96b146ac3908521f4c092, type: 3}
+  bulletHit: {fileID: 8300000, guid: 430590c913d43104ebf1eaa4bcd8ba3a, type: 3}
+  bulletMiss: {fileID: 8300000, guid: 65c05d7c7b76e0049b9fec4fa544b4e0, type: 3}
+--- !u!4 &1911344608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911344606}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.4912953, y: -0.27026388, z: -1.63489}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1993769314
 GameObject:
   m_ObjectHideFlags: 0
@@ -10556,3 +10606,4 @@ SceneRoots:
   - {fileID: 1500866379}
   - {fileID: 1646103394}
   - {fileID: 709723334}
+  - {fileID: 1911344608}

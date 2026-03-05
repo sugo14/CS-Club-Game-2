@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarPrefab: {fileID: 6366306823765760664, guid: 613507b63ceddb540bf91abaa5f476ed, type: 3}
+  healthBarHeight: 1
   isDead: 0
   respawnTime: 3
 --- !u!114 &980299533946723815
@@ -186,7 +187,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   groundCheckOffset: {x: 0, y: -0.16}
-  groundCheckSize: {x: 0.33, y: 0.29}
+  groundCheckSize: {x: 0.33, y: 0.35}
 --- !u!114 &-5377875866552900386
 MonoBehaviour:
   m_ObjectHideFlags: 0

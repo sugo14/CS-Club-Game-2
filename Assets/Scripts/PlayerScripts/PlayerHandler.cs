@@ -50,6 +50,7 @@ public class PlayerHandler : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().enabled = show;
         GetComponent<CircleCollider2D>().enabled = show;
+        GetComponent<PlayerMovement>().enabled = show;
         healthBar.SetActive(show);
         playerGun.SetActive(show);
 

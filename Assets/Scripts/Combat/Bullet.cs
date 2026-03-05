@@ -12,6 +12,9 @@ public class Bullet : MonoBehaviour
 
     void Awake()
     {
+        // Play shoot sound effect
+        SFXManager.Instance.PlayerShoot();
+
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -26,13 +29,13 @@ public class Bullet : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
 
-
         //Debug.Log($"Bullet hit: {collision.gameObject.name}");
         if (collision.gameObject.TryGetComponent<Bullet>(out Bullet hitBullet))
         {
             if (bulletState.ownerId == hitBullet.bulletState.ownerId)
             {
                 // Ignore collision with bullets from the same owner
+                SFXManager.Instance.BulletMiss();
                 return;
             }
 
@@ -42,13 +45,22 @@ public class Bullet : MonoBehaviour
             if (playerHandler.playerID == bulletState.ownerId)
             {
                 // Ignore collision with the player who fired the bullet
+                SFXManager.Instance.BulletMiss();
                 return;
             }
+
             playerHandler.InflictDamage(bulletState.damage);
 
+            // Play Hit Sound
+            SFXManager.Instance.BulletHit();
         }
-        //Damage logic here
+        else
+        {
+            // Play Miss Sound
+            SFXManager.Instance.BulletMiss();
+        }
 
+        //Damage logic here
 
         // Destroy the bullet
         EntityRegistry.bullets.Remove(bulletState.id);
