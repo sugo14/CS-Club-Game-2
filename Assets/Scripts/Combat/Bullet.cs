@@ -54,6 +54,20 @@ public class Bullet : MonoBehaviour
             // Play Hit Sound
             SFXManager.Instance.BulletHit();
         }
+        if (collision.gameObject.TryGetComponent<TowerHealth>(out TowerHealth towerHealth))
+        {
+            if (towerHealth.playerID == bulletState.ownerId)
+            {
+                // Ignore collision with the player who fired the bullet
+                SFXManager.Instance.BulletMiss();
+                return;
+            }
+
+            towerHealth.DammageTower(bulletState.damage);
+
+            // Play Hit Sound
+            SFXManager.Instance.BulletHit();
+        }
         else
         {
             // Play Miss Sound

@@ -6,13 +6,13 @@ public static class PlayerBaseStats
     public const float baseDamage = 10f;
     public const float baseKnockback = 5f;
     public const float baseLifesteal = 0f;
-    public const float baseBulletSpeed = 5f;
+    public const float baseBulletSpeed = 15f;
 
 
     public const int baseBulletsPerBurst = 1;
     public const float baseBurstDelay = 50f; //milliseconds
     public const float baseBulletSpread = 0.08f; // deg
-    public const float baseReloadSpeed = 2f;
+    public const float baseReloadSpeed = 1f;
     public const float baseFireDelay = 0.1f;
     public const int baseMagazineSize = 3;
 
