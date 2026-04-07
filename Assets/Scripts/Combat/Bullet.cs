@@ -28,26 +28,9 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-
-        //Debug.Log($"Bullet hit: {collision.gameObject.name}");
-        if (collision.gameObject.TryGetComponent<Bullet>(out Bullet hitBullet))
-        {
-            if (bulletState.ownerId == hitBullet.bulletState.ownerId)
-            {
-                // Ignore collision with bullets from the same owner
-                SFXManager.Instance.BulletMiss();
-                return;
-            }
-
-        }
+        ////Debug.Log($"Bullet collided with: {collision.gameObject.name}");
         if (collision.gameObject.TryGetComponent<PlayerHandler>(out PlayerHandler playerHandler))
         {
-            if (playerHandler.playerID == bulletState.ownerId)
-            {
-                // Ignore collision with the player who fired the bullet
-                SFXManager.Instance.BulletMiss();
-                return;
-            }
 
             playerHandler.InflictDamage(bulletState.damage);
 
@@ -56,12 +39,6 @@ public class Bullet : MonoBehaviour
         }
         if (collision.gameObject.TryGetComponent<TowerHealth>(out TowerHealth towerHealth))
         {
-            if (towerHealth.playerID == bulletState.ownerId)
-            {
-                // Ignore collision with the player who fired the bullet
-                SFXManager.Instance.BulletMiss();
-                return;
-            }
 
             towerHealth.DammageTower(bulletState.damage);
 
@@ -86,6 +63,7 @@ public class Bullet : MonoBehaviour
     public void setup(BulletState state)
     {
         bulletState = state;
+        transform.localScale = new Vector3(bulletState.damage / 25f, bulletState.damage / 25f, 1f);
 
         if (rb == null)
         {
@@ -94,6 +72,43 @@ public class Bullet : MonoBehaviour
         if (rb != null)
         {
             rb.velocity = bulletState.velocity;
+        }
+
+        // Ignore physical collisions with GameObjects owned by the same player
+        Collider2D myCollider = GetComponent<Collider2D>();
+        if (myCollider != null)
+        {
+            // Ignore player collider(s)
+            if (EntityRegistry.players.TryGetValue(state.ownerId, out GameObject playerObj) && playerObj != null)
+            {
+                foreach (Collider2D col in playerObj.GetComponentsInChildren<Collider2D>())
+                {
+                    Physics2D.IgnoreCollision(myCollider, col);
+                }
+            }
+
+            // Ignore tower collider(s)
+            if (EntityRegistry.towers.TryGetValue(state.ownerId, out GameObject towerObj) && towerObj != null)
+            {
+                foreach (Collider2D col in towerObj.GetComponentsInChildren<Collider2D>())
+                {
+                    Physics2D.IgnoreCollision(myCollider, col);
+                }
+            }
+
+            // Ignore other bullets from the same player
+            foreach (var kvp in EntityRegistry.bullets)
+            {
+                if (kvp.Value != null && kvp.Value != gameObject && 
+                    kvp.Value.TryGetComponent<Bullet>(out Bullet otherBullet) && 
+                    otherBullet.bulletState.ownerId == state.ownerId)
+                {
+                    if (kvp.Value.TryGetComponent<Collider2D>(out Collider2D otherCol))
+                    {
+                        Physics2D.IgnoreCollision(myCollider, otherCol);
+                    }
+                }
+            }
         }
     }
 }

@@ -23,6 +23,7 @@ public class Gun : MonoBehaviour
 
     int ammo;
 
+
     CircleCollider2D targetAreaCol;
 
     // Properties from PlayerState for convenience
@@ -36,12 +37,14 @@ public class Gun : MonoBehaviour
     private float targetingRange => playerState.roundStats.targetingRange;
 
 
+
     void Start()
     {
         ammo = magazineSize;
         targetAreaCol = GetComponent<CircleCollider2D>();
         targetAreaCol.radius = targetingRange;
         targetAreaCol.isTrigger = true; // Make sure it's a trigger
+
 
     }
 
