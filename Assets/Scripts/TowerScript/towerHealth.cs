@@ -7,6 +7,8 @@ public class TowerHealth : MonoBehaviour
     public GameObject player;
 
     public GameObject healthBarPrefab;
+    public float healthBarHeight = -1.2f;
+    public Vector3 healthBarScale = new Vector3(2, 0.2f, 1);
     private GameObject healthBar;
 
 
@@ -29,8 +31,11 @@ public class TowerHealth : MonoBehaviour
         healthBar = Instantiate(healthBarPrefab);
         
         healthBar.transform.SetParent(transform, false);
-        healthBar.transform.localPosition = new Vector3(0, -1.2f, 0);
-        healthBar.transform.localScale = new Vector3(2, .2f, 1); 
+        healthBar.transform.localPosition = new Vector3(0, healthBarHeight, 0);
+        healthBar.transform.localScale = healthBarScale;
+
+        // Initialize health bar fill
+        healthBar.GetComponent<HealhBar>().setFill(1f);
     }
 
     public void DammageTower(float dammage)
