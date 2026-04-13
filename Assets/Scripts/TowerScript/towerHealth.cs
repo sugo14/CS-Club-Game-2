@@ -35,7 +35,12 @@ public class TowerHealth : MonoBehaviour
 
     public void DammageTower(float dammage)
     {
-        towerHealth -= dammage;
+        DamageTower(dammage);
+    }
+
+    public void DamageTower(float damage)
+    {
+        towerHealth -= damage;
         healthBar.GetComponent<HealhBar>().setFill(towerHealth / playerState.roundStats.maxTowerHealth);
         if (towerHealth <= 0 && !isDead)
         {
