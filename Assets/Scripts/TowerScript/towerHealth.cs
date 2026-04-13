@@ -22,7 +22,7 @@ public class TowerHealth : MonoBehaviour
         // Initialize tower health from player state
         if (playerState.id != 0 || playerID == 0)
         {
-            towerHealth = (int)playerState.roundStats.maxTowerHealth;
+            towerHealth = playerState.roundStats.maxTowerHealth;
         }
 
         // Add health bar
