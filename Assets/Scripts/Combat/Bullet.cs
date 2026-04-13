@@ -31,15 +31,13 @@ public class Bullet : MonoBehaviour
         ////Debug.Log($"Bullet collided with: {collision.gameObject.name}");
         if (collision.gameObject.TryGetComponent<PlayerHandler>(out PlayerHandler playerHandler))
         {
-
             playerHandler.InflictDamage(bulletState.damage);
 
             // Play Hit Sound
             SFXManager.Instance.BulletHit();
         }
-        if (collision.gameObject.TryGetComponent<TowerHealth>(out TowerHealth towerHealth))
+        else if (collision.gameObject.TryGetComponent<TowerHealth>(out TowerHealth towerHealth))
         {
-
             towerHealth.DammageTower(bulletState.damage);
 
             // Play Hit Sound
