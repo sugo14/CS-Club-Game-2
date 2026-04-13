@@ -244,7 +244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3000000000000003, guid: c9faad1584db467b85e9664f7e5c4414, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.020000458
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000000000000000, guid: c9faad1584db467b85e9664f7e5c4414, type: 3}
       propertyPath: m_SortingOrder
@@ -9102,20 +9102,36 @@ PrefabInstance:
       value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
+      propertyPath: spawnPoints.Array.data[2].x
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
+      propertyPath: spawnPoints.Array.data[2].y
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
       propertyPath: towerSpawnPoints.Array.data[0].x
-      value: -14.7
+      value: -14.75
       objectReference: {fileID: 0}
     - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
       propertyPath: towerSpawnPoints.Array.data[0].y
-      value: -3.2
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
       propertyPath: towerSpawnPoints.Array.data[1].x
-      value: 13.8
+      value: 13.75
       objectReference: {fileID: 0}
     - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
       propertyPath: towerSpawnPoints.Array.data[1].y
-      value: -3.2
+      value: -3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
+      propertyPath: towerSpawnPoints.Array.data[2].x
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1557233088793631472, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
+      propertyPath: towerSpawnPoints.Array.data[2].y
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4666207886195884021, guid: 76733ad93b5959a45b636b58a60594e0, type: 3}
       propertyPath: cards

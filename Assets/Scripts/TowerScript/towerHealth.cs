@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class TowerHealth : MonoBehaviour
 {
-    public int towerHealth;
+    public float towerHealth;
     public bool isDead;
     public GameObject player;
+
+    public GameObject healthBarPrefab;
+    public float healthBarHeight = -1.2f;
+    public Vector3 healthBarScale = new Vector3(2, 0.2f, 1);
+    private GameObject healthBar;
+
 
     [System.NonSerialized] public int playerID;
     [System.NonSerialized] public PlayerState playerState;
@@ -14,21 +20,39 @@ public class TowerHealth : MonoBehaviour
         isDead = false;
         gameObject.SetActive(true);
 
+
         // Initialize tower health from player state
         if (playerState.id != 0 || playerID == 0)
         {
-            towerHealth = (int)playerState.roundStats.maxTowerHealth;
+            towerHealth = playerState.roundStats.maxTowerHealth;
         }
+
+        // Add health bar
+        healthBar = Instantiate(healthBarPrefab);
+        
+        healthBar.transform.SetParent(transform, false);
+        healthBar.transform.localPosition = new Vector3(0, healthBarHeight, 0);
+        healthBar.transform.localScale = healthBarScale;
+
+        // Initialize health bar fill
+        healthBar.GetComponent<HealhBar>().setFill(1f);
     }
 
-    void DammageTower(int dammage)
+    public void DammageTower(float dammage)
     {
-        towerHealth -= dammage;
+        DamageTower(dammage);
+    }
+
+    public void DamageTower(float damage)
+    {
+        towerHealth -= damage;
+        healthBar.GetComponent<HealhBar>().setFill(towerHealth / playerState.roundStats.maxTowerHealth);
         if (towerHealth <= 0 && !isDead)
         {
             isDead = true;
             player.GetComponent<PlayerHandler>().Kill();
             gameObject.SetActive(false);
+            healthBar.SetActive(false);
 
         }
     }
